@@ -23,45 +23,46 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("Fixed Updated");
+        //Debug.Log("Fixed Updated");
         calcMainPlane();
-        calcSpawnPoints();
 
         if (spawnPoints.Count > 0)
         {
             Instantiate(objectToSpawn, (Vector3)spawnPoints[0], new Quaternion(0, 0, 0, 0));
+             Debug.Log("********************Object spawned*********************************");
         }
 
-        Debug.Log(mainPlane.classification.ToString());
+        //Debug.Log(mainPlane.classification.ToString());
     }
 
     private void calcMainPlane()
     {
-        Debug.Log("Calc Main Plane");
+        //Debug.Log("Calc Main Plane");
         foreach (var plane in planeManager.trackables)
-        {
-            Debug.Log("ARPlane Class: " + ((ARPlane)plane).classification.ToString());
-            Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
-
-            if (((ARPlane)plane).classification == PlaneClassification.Floor
-                && (mainPlane == null
+        {         
+            //((ARPlane)plane).classification == PlaneClassification.Floor
+             //   &&
+            if ((mainPlane == null
                 || ((ARPlane)plane).size.sqrMagnitude > mainPlane.size.sqrMagnitude))
             {
-                mainPlane = (ARPlane)plane; // Biggest Plane 
+                 Debug.Log("ARPlane Class: " + ((ARPlane)plane).classification.ToString());
+                 Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
+                if(mainPlane != (ARPlane)plane){
+                    mainPlane = (ARPlane)plane; // Biggest Plane 
+                    Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
+                    calcSpawnPoints();
+                }
             }
         }
-
-
-        Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
     }
 
     private void calcSpawnPoints()
     {
         Debug.Log("Calc Spawn Points");
-        while (spawnPoints.Count <= 4)
+        while (spawnPoints.Count <= 4 && mainPlane != null)
         {
-            float randomAngle = UnityEngine.Random.Range(0f, 6.28319f);
-            Vector2 newSpawnPoint = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
+            Vector3 spawnpoint = mainPlane.center;
+            Vector2 newSpawnPoint = new Vector2(spawnpoint.x, spawnpoint.y);
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
