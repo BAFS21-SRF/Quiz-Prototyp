@@ -52,7 +52,7 @@ public class PlaneController : MonoBehaviour
         }
 
 
-        Debug.Log("Biggest ARPlane: " + ((ARPlane)plane).classification.ToString());
+        Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
     }
 
     private void calcSpawnPoints()
@@ -60,11 +60,11 @@ public class PlaneController : MonoBehaviour
         Debug.Log("Calc Spawn Points");
         while (spawnPoints.Count <= 4)
         {
-            float randomAngle = Random.Range(0f, 6.28319f);
-            Vector2 newSpawnPoint = new Vector2(Mathf.Cos(random), Mathf.Sin(random));
+            float randomAngle = UnityEngine.Random.Range(0f, 6.28319f);
+            Vector2 newSpawnPoint = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
-                Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " newSpawnPoint.y);
+                Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);
             }
         }
