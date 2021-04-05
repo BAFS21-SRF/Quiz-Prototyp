@@ -44,8 +44,8 @@ public class PlaneController : MonoBehaviour
             Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
 
             if (((ARPlane)plane).classification == PlaneClassification.Floor
-                && mainPlane != null
-                && ((ARPlane)plane).size.sqrMagnitude > mainPlane.size.sqrMagnitude)
+                && (mainPlane == null
+                || ((ARPlane)plane).size.sqrMagnitude > mainPlane.size.sqrMagnitude))
             {
                 mainPlane = (ARPlane)plane; // Biggest Plane 
             }
