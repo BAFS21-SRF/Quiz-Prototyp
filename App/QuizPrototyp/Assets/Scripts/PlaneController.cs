@@ -7,9 +7,10 @@ using UnityEngine.XR.ARSubsystems;
 
 public class PlaneController : MonoBehaviour
 {
-    public ARPlaneManager planeManager;
+    private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
+    private int countUpdateBeforMainPlaneDetection = 0;
 
     public GameObject objectToSpawn;
 
@@ -18,62 +19,45 @@ public class PlaneController : MonoBehaviour
     void Start()
     {
         planeManager = GetComponent<ARPlaneManager>();
-        ExampleCoroutine();
 
-        calcMainPlane();
-
-    }
-
-    IEnumerator ExampleCoroutine()
-    {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
-
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Debug.Log("Fixed Updated");
+        if (countUpdateBeforMainPlaneDetection <= 700){
+            countUpdateBeforMainPlaneDetection++;
+            Debug.Log("Count: " + countUpdateBeforMainPlaneDetection);
+        }else if(mainPlane == null) {
+            calcMainPlane();
+        }
 
         if (spawnPoints.Count > 0)
         {
             Instantiate(objectToSpawn, (Vector3)spawnPoints[0], new Quaternion(0, 0, 0, 0));
-             Debug.Log("********************Object spawned*********************************");
+            Debug.Log("********************Object spawned*********************************");
         }
-
-        //Debug.Log(mainPlane.classification.ToString());
     }
 
     private void calcMainPlane()
     {
-        //Debug.Log("Calc Main Plane");
         foreach (var plane in planeManager.trackables)
-        {         
-            //((ARPlane)plane).classification == PlaneClassification.Floor
-             //   &&
+        {
             if ((mainPlane == null
-                || ((ARPlane)plane).size.sqrMagnitude > mainPlane.size.sqrMagnitude))
+                || ((ARPlane)plane).size.sqrMagnitude >= mainPlane.size.sqrMagnitude))
             {
                  Debug.Log("ARPlane Class: " + ((ARPlane)plane).classification.ToString());
                  Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
                 if(mainPlane != (ARPlane)plane){
-                    mainPlane = (ARPlane)plane; // Biggest Plane 
+                    mainPlane = (ARPlane)plane; // Biggest Plane
+                    plane.gameObject.SetActive(true);
+                    Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
+                    Debug.Log("Center X " + mainPlane.boundary[0].x + " and Y " + mainPlane.boundary[0].y);
+                    Debug.Log("Count Boundary " + mainPlane.boundary.Length);
                 }
+            }else {
+                plane.gameObject.SetActive(false);
             }
-
-            plane.gameObject.SetActive(false);
-        }
-
-        if (mainPlane != null)
-        {
-            Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
-            Debug.Log("Center X " + mainPlane.center.x + " and Y " + mainPlane.center.y);
         }
     }
 
