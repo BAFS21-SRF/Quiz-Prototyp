@@ -27,15 +27,17 @@ public class PlaneController : MonoBehaviour
     {
         if (countUpdateBeforMainPlaneDetection <= 700){
             countUpdateBeforMainPlaneDetection++;
-            Debug.Log("Count: " + countUpdateBeforMainPlaneDetection);
         }else if(mainPlane == null) {
             calcMainPlane();
-        }
-
-        if (spawnPoints.Count > 0)
-        {
-            Instantiate(objectToSpawn, (Vector3)spawnPoints[0], new Quaternion(0, 0, 0, 0));
-            Debug.Log("********************Object spawned*********************************");
+            calcSpawnPoints();
+            if (spawnPoints.Count > 0)
+            {
+                foreach (Vector2 randomSpanwPoint in spawnPoints){
+                    Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, randomSpanwPoint.y, mainPlane.center.z);
+                    Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0));
+                    Debug.Log("********************Object spawned*********************************");
+                }
+            }
         }
     }
 
@@ -50,24 +52,25 @@ public class PlaneController : MonoBehaviour
                  Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
                 if(mainPlane != (ARPlane)plane){
                     mainPlane = (ARPlane)plane; // Biggest Plane
-                    plane.gameObject.SetActive(true);
                     Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
-                    Debug.Log("Center X " + mainPlane.boundary[0].x + " and Y " + mainPlane.boundary[0].y);
+                    foreach (Vector2 boundary in mainPlane.boundary){
+                      Debug.Log("Boundary X " + boundary.x + " and Y " + boundary.y);  
+                    }
+                    Debug.Log("Center X " + mainPlane.center.x + " and Y " + mainPlane.center.y + " and Z " + mainPlane.center.z);
                     Debug.Log("Count Boundary " + mainPlane.boundary.Length);
                 }
-            }else {
-                plane.gameObject.SetActive(false);
             }
         }
     }
 
     private void calcSpawnPoints()
     {
-        Debug.Log("Calc Spawn Points");
+        Debug.Log("**********************Calc Spawn Points*********************");
         while (spawnPoints.Count <= 4 && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
-            Vector2 newSpawnPoint = new Vector2(spawnpoint.x, spawnpoint.y);
+            Vector2 newSpawnPoint = new Vector2(UnityEngine.Random.Range(-mainPlane.size.x / 2, mainPlane.size.x / 2), UnityEngine.Random.Range(-mainPlane.size.y / 2, mainPlane.size.y / 2));
+            Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
@@ -79,16 +82,13 @@ public class PlaneController : MonoBehaviour
     private bool isInPlane(Vector2 newSpawnPoint)
     {
         Debug.Log("is Plane");
-        // Get the angle between the point and the
-        // first and last vertices.
+
         int max_point = mainPlane.boundary.Length - 1;
         float total_angle = GetAngle(
             mainPlane.boundary[max_point].x, mainPlane.boundary[max_point].y,
             newSpawnPoint.x, newSpawnPoint.y,
             mainPlane.boundary[0].x, mainPlane.boundary[0].y);
 
-        // Add the angles from the point
-        // to each other pair of vertices.
         for (int i = 0; i < max_point; i++)
         {
             total_angle += GetAngle(
@@ -97,11 +97,8 @@ public class PlaneController : MonoBehaviour
                 mainPlane.boundary[i + 1].x, mainPlane.boundary[i + 1].y);
         }
 
-        // The total angle should be 2 * PI or -2 * PI if
-        // the point is in the polygon and close to zero
-        // if the point is outside the polygon.
-        // The following statement was changed. See the comments.
-        //return (Math.Abs(total_angle) > 0.000001);
+        Debug.Log("Total Angle " + total_angle);
+
         return (Math.Abs(total_angle) > 1);
     }
 
@@ -151,17 +148,19 @@ public class PlaneController : MonoBehaviour
 
         foreach(Vector2 vec in currentSpawnPoints)
         {
-            if (calcDistance(vec, newSpawnPoint) > threshold)
+            if (calcDistance(vec, newSpawnPoint) < threshold)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
-        return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+        var distance = Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+        Debug.Log("Distance " + distance);
+        return distance;
     }
 
 }
