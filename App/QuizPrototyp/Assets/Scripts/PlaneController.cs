@@ -14,6 +14,10 @@ public class PlaneController : MonoBehaviour
 
     public GameObject objectToSpawn;
 
+    public GameObject camera;
+
+    public List<GameObject> spwanedObjects = new List<GameObject>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +38,20 @@ public class PlaneController : MonoBehaviour
             {
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, randomSpanwPoint.y, mainPlane.center.z);
-                    Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0));
+                    spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
             }
+        }
+        calcCameraToObjectDistance();
+    }
+
+    private void calcCameraToObjectDistance(){
+        foreach(GameObject gameObject in spwanedObjects){
+           float dist = Vector3.Distance(gameObject.transform.position, camera.transform.position);
+           if(dist < 1){
+            Debug.Log($"{gameObject.name} hat eine Distanz von {dist} zur Kamera");
+           }
         }
     }
 
