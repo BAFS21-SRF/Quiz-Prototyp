@@ -37,7 +37,8 @@ public class PlaneController : MonoBehaviour
             if (spawnPoints.Count > 0)
             {
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
-                    Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, randomSpanwPoint.y, mainPlane.center.z);
+                    Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
+                    Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
                     spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
@@ -80,7 +81,7 @@ public class PlaneController : MonoBehaviour
     private void calcSpawnPoints()
     {
         Debug.Log("**********************Calc Spawn Points*********************");
-        while (spawnPoints.Count <= 4 && mainPlane != null)
+        while (spawnPoints.Count < 4 && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
             Vector2 newSpawnPoint = new Vector2(UnityEngine.Random.Range(-mainPlane.size.x / 2, mainPlane.size.x / 2), UnityEngine.Random.Range(-mainPlane.size.y / 2, mainPlane.size.y / 2));

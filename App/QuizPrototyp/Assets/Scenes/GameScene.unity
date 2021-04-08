@@ -350,6 +350,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 7349620347673499975, guid: 58669f9fd4bd663489cfa5bf25d6a1ae, type: 3}
+  camera: {fileID: 1990907125}
+  spwanedObjects: []
 --- !u!114 &1177374648
 MonoBehaviour:
   m_ObjectHideFlags: 0
