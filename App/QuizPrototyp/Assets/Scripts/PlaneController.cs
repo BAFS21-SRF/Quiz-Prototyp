@@ -14,7 +14,7 @@ public class PlaneController : MonoBehaviour
 
     public GameObject objectToSpawn;
 
-    public GameObject camera;
+  
 
     public List<GameObject> spwanedObjects = new List<GameObject>();
 
@@ -22,7 +22,10 @@ public class PlaneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        planeManager = GetComponent<ARPlaneManager>();
+        GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
+        if(planeManager == null){
+            Debug.Log($"planeManager ist null");
+        }
 
     }
 
@@ -44,17 +47,7 @@ public class PlaneController : MonoBehaviour
                 }
             }
         }
-        calcCameraToObjectDistance();
-    }
-
-    private void calcCameraToObjectDistance(){
-        foreach(GameObject gameObject in spwanedObjects){
-           float dist = Vector3.Distance(gameObject.transform.position, camera.transform.position);
-           if(dist < 1){
-            Debug.Log($"{gameObject.name} hat eine Distanz von {dist} zur Kamera");
-           }
-        }
-    }
+    }   
 
     private void calcMainPlane()
     {
@@ -80,7 +73,7 @@ public class PlaneController : MonoBehaviour
 
     private void calcSpawnPoints()
     {
-        Debug.Log("**********************Calc Spawn Points*********************");
+        Debug.Log($"**********************Calc Spawn Points********************* With {spawnPoints.Count} Spawnpoints and IsMainPlaneNull_ {mainPlane ==null}");        
         while (spawnPoints.Count < 4 && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
