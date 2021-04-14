@@ -1,7 +1,8 @@
-﻿using QuizPrototype.WebApi.Models;
+﻿using QuizPrototype.Domain.Entities;
+using QuizPrototype.Domain.Interfaces;
 using System.Collections.Generic;
 
-namespace QuizPrototype.WebApi.Repositories
+namespace QuizPrototype.Infrastructure.Data.Repositories
 {
     public class FrageRepository : IFrageRepository
     {

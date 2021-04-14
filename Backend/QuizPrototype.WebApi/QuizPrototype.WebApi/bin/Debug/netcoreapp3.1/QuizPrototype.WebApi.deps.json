@@ -27,6 +27,9 @@
           "MediatR": "9.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.10.13",
+          "QuizPrototype.Domain": "1.0.0",
+          "QuizPrototype.Infrastructure": "1.0.0",
+          "QuizPrototype.Service": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -345,6 +348,33 @@
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/2.0.0": {},
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.10.13": {},
+      "QuizPrototype.Domain/1.0.0": {
+        "runtime": {
+          "QuizPrototype.Domain.dll": {}
+        },
+        "compile": {
+          "QuizPrototype.Domain.dll": {}
+        }
+      },
+      "QuizPrototype.Infrastructure/1.0.0": {
+        "dependencies": {
+          "QuizPrototype.Domain": "1.0.0"
+        },
+        "runtime": {
+          "QuizPrototype.Infrastructure.dll": {}
+        },
+        "compile": {
+          "QuizPrototype.Infrastructure.dll": {}
+        }
+      },
+      "QuizPrototype.Service/1.0.0": {
+        "runtime": {
+          "QuizPrototype.Service.dll": {}
+        },
+        "compile": {
+          "QuizPrototype.Service.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Antiforgery.dll": {}
@@ -2072,6 +2102,21 @@
       "sha512": "sha512-HWRH5pClal37WMKb0kV2JtnNKUEyQk8kJDdBz0M0fn9hKeU2KW8wdxkxeBNaumGQzHibZqSRofkeeayfpsMaKA==",
       "path": "microsoft.visualstudio.azure.containers.tools.targets/1.10.13",
       "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+    },
+    "QuizPrototype.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuizPrototype.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuizPrototype.Service/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
       "type": "referenceassembly",

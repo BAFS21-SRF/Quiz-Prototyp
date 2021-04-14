@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using QuizPrototype.Domain.Entities;
 using QuizPrototype.WebApi.Commands;
-using QuizPrototype.WebApi.Models;
 using System.Threading.Tasks;
 
 namespace QuizPrototype.WebApi.Controllers

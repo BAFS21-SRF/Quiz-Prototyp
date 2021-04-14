@@ -39,6 +39,39 @@
           "build/Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props": {},
           "build/Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets": {}
         }
+      },
+      "QuizPrototype.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/QuizPrototype.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuizPrototype.Domain.dll": {}
+        }
+      },
+      "QuizPrototype.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "QuizPrototype.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/QuizPrototype.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuizPrototype.Infrastructure.dll": {}
+        }
+      },
+      "QuizPrototype.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/QuizPrototype.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuizPrototype.Service.dll": {}
+        }
       }
     }
   },
@@ -165,13 +198,31 @@
         "tools/zh-Hant/Microsoft.VisualStudio.Containers.Tools.Shared.resources.dll",
         "tools/zh-Hant/Microsoft.VisualStudio.Containers.Tools.Tasks.resources.dll"
       ]
+    },
+    "QuizPrototype.Domain/1.0.0": {
+      "type": "project",
+      "path": "../QuizPrototype.Domain/QuizPrototype.Domain.csproj",
+      "msbuildProject": "../QuizPrototype.Domain/QuizPrototype.Domain.csproj"
+    },
+    "QuizPrototype.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../QuizPrototype.Infrastructure/QuizPrototype.Infrastructure.csproj",
+      "msbuildProject": "../QuizPrototype.Infrastructure/QuizPrototype.Infrastructure.csproj"
+    },
+    "QuizPrototype.Service/1.0.0": {
+      "type": "project",
+      "path": "../QuizPrototype.Service/QuizPrototype.Service.csproj",
+      "msbuildProject": "../QuizPrototype.Service/QuizPrototype.Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "MediatR >= 9.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 9.0.0",
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.13"
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.13",
+      "QuizPrototype.Domain >= 1.0.0",
+      "QuizPrototype.Infrastructure >= 1.0.0",
+      "QuizPrototype.Service >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -207,7 +258,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
+              "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj"
+            },
+            "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj": {
+              "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj"
+            },
+            "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj": {
+              "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

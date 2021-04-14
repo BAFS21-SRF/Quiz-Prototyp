@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using QuizPrototype.WebApi.Models;
+using QuizPrototype.Domain.Entities;
 
 namespace QuizPrototype.WebApi.Commands
 {

@@ -12,5 +12,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\QuizPrototype.Domain\QuizPrototype.Domain.csproj" />
+    <ProjectReference Include="..\QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj" />
+    <ProjectReference Include="..\QuizPrototype.Service\QuizPrototype.Service.csproj" />
+  </ItemGroup>
+
 
 </Project>

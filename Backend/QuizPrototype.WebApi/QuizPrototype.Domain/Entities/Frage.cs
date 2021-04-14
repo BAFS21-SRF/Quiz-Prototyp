@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace QuizPrototype.WebApi.Models
+namespace QuizPrototype.Domain.Entities
 {
-    public class Frage
+    public class Frage : BaseEntity
     {
-        public int Id { get; set; }
         public string FrageText { get; set; }
         public List<Auswahl> Auswahlmoeglichkeiten { get; set; }
     }

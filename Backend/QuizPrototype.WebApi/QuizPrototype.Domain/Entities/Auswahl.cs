@@ -1,9 +1,8 @@
 ﻿
-namespace QuizPrototype.WebApi.Models
+namespace QuizPrototype.Domain.Entities
 {
-    public class Auswahl
+    public class Auswahl : BaseEntity
     {
-        public int Id { get; set; }
         public string AuswahlText { get; set; }
         public int Order { get; set; }
     }

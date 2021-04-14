@@ -41,3 +41,9 @@ D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\obj\Deb
 D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\MediatR.dll
 D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\obj\Debug\netcoreapp3.1\QuizPrototype.WebApi.csproj.CopyComplete
 D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.dll
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.dll
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Service.dll
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.pdb
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.pdb
+D:\Projects\BAFS21_SRF\Backend\QuizPrototype.WebApi\QuizPrototype.WebApi\bin\Debug\netcoreapp3.1\QuizPrototype.Service.pdb

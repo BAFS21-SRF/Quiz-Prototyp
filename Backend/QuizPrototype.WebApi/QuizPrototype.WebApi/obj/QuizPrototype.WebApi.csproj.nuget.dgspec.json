@@ -4,6 +4,187 @@
     "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.WebApi\\QuizPrototype.WebApi.csproj": {}
   },
   "projects": {
+    "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj",
+        "projectName": "QuizPrototype.Domain",
+        "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj",
+        "packagesPath": "C:\\Users\\CoderCAE\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\CoderCAE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
+        "projectName": "QuizPrototype.Infrastructure",
+        "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\CoderCAE\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\CoderCAE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
+                "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj",
+        "projectName": "QuizPrototype.Service",
+        "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj",
+        "packagesPath": "C:\\Users\\CoderCAE\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\CoderCAE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.WebApi\\QuizPrototype.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -32,7 +213,17 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
+                "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj"
+              },
+              "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj"
+              },
+              "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj": {
+                "projectPath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Service\\QuizPrototype.Service.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
