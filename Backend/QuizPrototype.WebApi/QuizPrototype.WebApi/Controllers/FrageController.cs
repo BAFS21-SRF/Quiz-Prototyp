@@ -17,6 +17,7 @@ namespace QuizPrototype.WebApi.Controllers
             this.mediator = mediator;
         }
 
+        [HttpGet("")]
         public async Task<ActionResult<Frage>> GetCurrentFrage()
         {
             var frage = await mediator.Send(new SendFrageCommand());

@@ -1,9 +1,10 @@
 ﻿using QuizPrototype.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace QuizPrototype.Domain.Interfaces
 {
     public interface IFrageRepository
     {
-        Frage GetCurrentFrage();
+        Task<Frage> GetCurrentFrage();
     }
 }

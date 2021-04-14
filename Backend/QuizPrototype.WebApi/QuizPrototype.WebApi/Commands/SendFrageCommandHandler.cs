@@ -17,7 +17,7 @@ namespace QuizPrototype.WebApi.Commands
 
         public Task<Frage> Handle(SendFrageCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(frageRepository.GetCurrentFrage());
+            return frageRepository.GetCurrentFrage();
         }
     }
 }
