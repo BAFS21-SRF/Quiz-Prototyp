@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "zUOG24fhlLqfF+8TOOckd+JJeQrxxs35U8oz/CEFrJslEL19MIz2R4S55uHA+NDT2ulWzUnK4m10Ky64FnFxYg==",
+  "dgSpecHash": "XsZbLdaTC2vX2I5ANkOGNrscm/XeHq4xnfgSnfoPDYT8CKlM79nja4fKKkAMwxrma0CDWMLLRw7wjRAoNzj/qA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.WebApi\\QuizPrototype.WebApi.csproj",
+  "projectFilePath": "D:\\Projects\\BAFS21_SRF\\Backend\\QuizPrototype.WebApi\\QuizPrototype.WebApi\\QuizPrototype.WebApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\danie\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+    "C:\\Users\\CoderCAE\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\CoderCAE\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
+    "C:\\Users\\CoderCAE\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.0.0\\microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\CoderCAE\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
   ],
   "logs": []
 }
