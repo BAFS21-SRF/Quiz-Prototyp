@@ -72,7 +72,7 @@ public class PlaneController : MonoBehaviour
         var maxX = mainPlane.boundary.Max(value => value.x);
         var minX = mainPlane.boundary.Min(value => value.x);
         var maxY = mainPlane.boundary.Max(value => value.y);
-        var minY = mainPlane.boundary.Min(value => value.y);
+        var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
         Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
         while (spawnPoints.Count < 4 && mainPlane != null)
         {
