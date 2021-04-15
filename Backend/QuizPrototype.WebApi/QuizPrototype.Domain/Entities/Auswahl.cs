@@ -5,5 +5,7 @@ namespace QuizPrototype.Domain.Entities
     {
         public string AuswahlText { get; set; }
         public int Order { get; set; }
+
+        public long FrageId { get; set; }
     }
 }

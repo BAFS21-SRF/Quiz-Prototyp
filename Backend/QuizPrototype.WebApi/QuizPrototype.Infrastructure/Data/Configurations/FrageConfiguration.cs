@@ -15,7 +15,8 @@ namespace QuizPrototype.Infrastructure.Data.Configurations
                 .HasColumnName("FrageText");
 
             builder.HasMany(f => f.Auswahlmoeglichkeiten)
-                .WithOne();
+                .WithOne()
+                .HasForeignKey("FrageId");
         }
     }
 }

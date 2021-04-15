@@ -6,7 +6,8 @@ namespace QuizPrototype.Infrastructure.Data.Context
 {
     public class QuizPrototypeDbContext : DbContext
     {
-        public DbSet<Frage> Fragen { get; set; }
+        public DbSet<Frage> Frage { get; set; }
+        public DbSet<Auswahl> Auswahl { get; set; }
 
         public QuizPrototypeDbContext(DbContextOptions<QuizPrototypeDbContext> options) : base(options)
         {
