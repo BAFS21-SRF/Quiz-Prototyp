@@ -26,7 +26,7 @@ namespace QuizPrototype.WebApi
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
 
-            //services.AddDbContext<QuizPrototypeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<QuizPrototypeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddTransient<IFrageRepository, FrageRepository>();
         }
