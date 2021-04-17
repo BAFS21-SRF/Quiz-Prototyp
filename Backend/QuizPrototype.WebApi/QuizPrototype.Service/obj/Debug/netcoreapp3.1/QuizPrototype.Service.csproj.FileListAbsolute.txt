@@ -1,0 +1,9 @@
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\bin\Debug\netcoreapp3.1\QuizPrototype.Service.deps.json
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\bin\Debug\netcoreapp3.1\QuizPrototype.Service.dll
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\bin\Debug\netcoreapp3.1\QuizPrototype.Service.pdb
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.csprojAssemblyReference.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.AssemblyInfoInputs.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.AssemblyInfo.cs
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.dll
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Service\obj\Debug\netcoreapp3.1\QuizPrototype.Service.pdb

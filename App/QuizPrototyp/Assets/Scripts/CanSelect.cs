@@ -12,7 +12,8 @@ public class CanSelect : MonoBehaviour
     private float waitTime = 2.0f;
     private float timer = 0.0f;
 
-    private float minDistanz = 1.0f;
+    public float minDistanz = 1.0f;
+     public float addDistanz = 0.1f;
     private float timerVisable = 0.0f;
     MeshRenderer meshRenderer;
 
@@ -27,7 +28,7 @@ public class CanSelect : MonoBehaviour
     void Update()
     {
         if(IsSelected){
-            meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);
+            meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);         
         }else{
             meshRenderer.material.color = Color.white;
         }
