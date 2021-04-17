@@ -32,6 +32,7 @@ public class PlaneController : MonoBehaviour
     void FixedUpdate()
     {
         if (canStart) {
+            canStart = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
