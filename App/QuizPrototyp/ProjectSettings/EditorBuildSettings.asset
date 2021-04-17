@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 837d42f4061e4924db12be6f4cd5796a, type: 2}
-    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b1d78e46ff8d70041b3f73bd72b68721, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ac91e314cd0d0454d8f2b5cddc46868c, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 837d42f4061e4924db12be6f4cd5796a,
+      type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b1d78e46ff8d70041b3f73bd72b68721,
+      type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: fd30cf7030bd342e1b45a869462e0ee0,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 6f7fbab671a5848ddae17e25cb330888,
+      type: 2}
+    com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: 548641ba2e111fb4bb0267a9742ca02c,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ac91e314cd0d0454d8f2b5cddc46868c,
+      type: 2}

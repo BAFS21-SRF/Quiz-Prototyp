@@ -15,6 +15,7 @@ public class PlaneController : MonoBehaviour
 
     public GameObject objectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
+    public static bool canStart = false;
 
 
     // Start is called before the first frame update
@@ -30,9 +31,7 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (countUpdateBeforMainPlaneDetection <= 700){
-            countUpdateBeforMainPlaneDetection++;
-        }else if(mainPlane == null) {
+        if (canStart) {
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
