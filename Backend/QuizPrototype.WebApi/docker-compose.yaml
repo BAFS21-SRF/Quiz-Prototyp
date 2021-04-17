@@ -6,6 +6,8 @@ services:
       dockerfile: QuizPrototype.WebApi/Dockerfile     
     ports:
       - "8888:80"
+    environment:
+        ConnectionStrings__Default: Server=db-srv; Database=QuizPrototype; User=sa; Password=Top-Secret;
      
     
   db-srv:

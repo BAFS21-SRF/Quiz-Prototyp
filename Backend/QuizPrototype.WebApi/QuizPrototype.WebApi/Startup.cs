@@ -1,17 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using QuizPrototype.WebApi.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using QuizPrototype.Domain.Interfaces;
+using QuizPrototype.Infrastructure.Data.Context;
+using QuizPrototype.Infrastructure.Data.Repositories;
 
 namespace QuizPrototype.WebApi
 {
@@ -29,6 +25,9 @@ namespace QuizPrototype.WebApi
         {
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
+
+            services.AddDbContext<QuizPrototypeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddTransient<IFrageRepository, FrageRepository>();
         }
 

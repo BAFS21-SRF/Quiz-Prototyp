@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using QuizPrototype.WebApi.Models;
-using QuizPrototype.WebApi.Repositories;
-using System;
+using QuizPrototype.Domain.Entities;
+using QuizPrototype.Domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +17,7 @@ namespace QuizPrototype.WebApi.Commands
 
         public Task<Frage> Handle(SendFrageCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(frageRepository.GetCurrentFrage());
+            return frageRepository.GetCurrentFrage();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using QuizPrototype.Domain.Entities;
 using QuizPrototype.WebApi.Commands;
-using QuizPrototype.WebApi.Models;
 using System.Threading.Tasks;
 
 namespace QuizPrototype.WebApi.Controllers
@@ -17,6 +17,7 @@ namespace QuizPrototype.WebApi.Controllers
             this.mediator = mediator;
         }
 
+        [HttpGet("")]
         public async Task<ActionResult<Frage>> GetCurrentFrage()
         {
             var frage = await mediator.Send(new SendFrageCommand());
