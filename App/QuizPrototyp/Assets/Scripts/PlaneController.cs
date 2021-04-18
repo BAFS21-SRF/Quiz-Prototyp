@@ -11,11 +11,11 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
-    private int countUpdateBeforMainPlaneDetection = 0;
 
     public GameObject objectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
-    public List<CanSelect> Awsnser = new List<CanSelect>();
+    public static bool canStart = false;
+    public List<CanSelect> Answers = new List<CanSelect>();
 
     public GameObject TrashCan;
 
@@ -25,7 +25,7 @@ public class PlaneController : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
-            Debug.Log($"planeManager ist null");
+            Debug.Log($"planeManager ist nulls");
         }
 
     }
@@ -33,9 +33,8 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (countUpdateBeforMainPlaneDetection <= 700){
-            countUpdateBeforMainPlaneDetection++;
-        }else if(mainPlane == null) {
+        if (canStart) {
+            canStart = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
@@ -47,25 +46,30 @@ public class PlaneController : MonoBehaviour
                     Debug.Log("********************Object spawned*********************************");
                 }
             }
-        }
 
-         foreach(GameObject gameObject in spwanedObjects){
-            CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
-            if(canSelect == null){
-                canSelect =  gameObject.GetComponent<CanSelect>();
-            }
+            foreach (GameObject gameObject in spwanedObjects)
+            {
+                CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
+                if (canSelect == null)
+                {
+                    canSelect = gameObject.GetComponent<CanSelect>();
+                }
 
-            if(canSelect.IsSelected){
-                Awsnser.Add(canSelect);
+                if (canSelect.IsSelected)
+                {
+                    Answers.Add(canSelect);
+                }
             }
-        }
-        CanSelect trash = TrashCan.GetComponent<CanSelect>();
-       
-        if(trash.IsSelected){
-                spwanedObjects.ForEach(x =>  x.GetComponentInChildren<CanSelect>().Reset());
+            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+
+            if (trash.IsSelected)
+            {
+                spwanedObjects.ForEach(x => x.GetComponentInChildren<CanSelect>().Reset());
                 trash.IsSelected = false;
-                Awsnser = new List<CanSelect>();
-        }       
+                Answers = new List<CanSelect>();
+            }
+
+        }
     }   
 
     private void calcMainPlane()
