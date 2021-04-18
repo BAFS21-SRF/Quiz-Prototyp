@@ -33,9 +33,6 @@ public class PlaceTrashOnPlane : MonoBehaviour
     ARRaycastManager m_RaycastManager;
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    
-    [SerializeField]
-    int m_MaxNumberOfObjectsToPlace = 1;
 
     int m_NumberOfPlacedObjects = 0;
 

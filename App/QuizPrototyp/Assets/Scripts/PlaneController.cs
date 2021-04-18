@@ -11,7 +11,6 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
-    private int countUpdateBeforMainPlaneDetection = 0;
 
     public GameObject objectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
@@ -26,7 +25,7 @@ public class PlaneController : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
-            Debug.Log($"planeManager ist null");
+            Debug.Log($"planeManager ist nulls");
         }
 
     }
