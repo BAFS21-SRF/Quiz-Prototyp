@@ -1,15 +1,26 @@
-Create database QuizGame
+Create database QuizPrototype
 GO
-Use QuizGame
+Use QuizPrototype
 GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Test](
+
+CREATE TABLE [dbo].[Frage](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[Text] [varchar](100) NOT NULL,
-	[AbtNr] [int] NOT NULL	
+	[FrageText] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+CREATE TABLE [dbo].[Auswahl](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[AuswahlText] [varchar](255) NOT NULL,
+	[Order] [int] NOT NULL,
+	[FrageId] [bigint] NOT NULL		
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

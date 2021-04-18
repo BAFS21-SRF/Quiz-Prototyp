@@ -1,0 +1,26 @@
+﻿using Microsoft.EntityFrameworkCore;
+using QuizPrototype.Domain.Entities;
+using QuizPrototype.Domain.Interfaces;
+using QuizPrototype.Infrastructure.Data.Context;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace QuizPrototype.Infrastructure.Data.Repositories
+{
+    public class FrageRepository : IFrageRepository
+    {
+        private readonly QuizPrototypeDbContext context;
+
+        public FrageRepository(QuizPrototypeDbContext context)
+        {
+            this.context = context;
+        }
+
+        public async Task<Frage> GetCurrentFrage()
+        {
+            var frage = await context.Frage.FirstOrDefaultAsync();
+            frage.Auswahlmoeglichkeiten = await context.Auswahl.Where(x => x.FrageId == frage.Id).ToListAsync();
+            return frage;
+        }
+    }
+}
