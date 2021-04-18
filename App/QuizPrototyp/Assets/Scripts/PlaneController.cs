@@ -11,10 +11,13 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
-    private int countUpdateBeforMainPlaneDetection = 0;
 
     public GameObject objectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
+    public static bool canStart = false;
+    public List<CanSelect> Answers = new List<CanSelect>();
+
+    public GameObject TrashCan;
 
     private Frage frage;
 
@@ -24,17 +27,16 @@ public class PlaneController : MonoBehaviour
         StartCoroutine(GetRequest("http://192.168.1.8:8888/api/frage"));
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
-            Debug.Log($"planeManager ist null");
+            Debug.Log($"planeManager ist nulls");
         }
 
     }
-
+    
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (countUpdateBeforMainPlaneDetection <= 700){
-            countUpdateBeforMainPlaneDetection++;
-        }else if(mainPlane == null) {
+        if (canStart) {
+            canStart = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
@@ -52,6 +54,29 @@ public class PlaneController : MonoBehaviour
                 }
                 
             }
+
+            foreach (GameObject gameObject in spwanedObjects)
+            {
+                CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
+                if (canSelect == null)
+                {
+                    canSelect = gameObject.GetComponent<CanSelect>();
+                }
+
+                if (canSelect.IsSelected)
+                {
+                    Answers.Add(canSelect);
+                }
+            }
+            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+
+            if (trash.IsSelected)
+            {
+                spwanedObjects.ForEach(x => x.GetComponentInChildren<CanSelect>().Reset());
+                trash.IsSelected = false;
+                Answers = new List<CanSelect>();
+            }
+
         }
     }   
 

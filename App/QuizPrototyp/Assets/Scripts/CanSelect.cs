@@ -5,21 +5,22 @@ using UnityEngine;
 public class CanSelect : MonoBehaviour
 {
 
-    private GameObject camera;
+    private GameObject arCamera;
     private bool isVisable;
     public bool IsSelected = false;
 
     private float waitTime = 2.0f;
     private float timer = 0.0f;
 
-    private float minDistanz = 1.0f;
+    public float minDistanz = 1.0f;
+     public float addDistanz = 0.1f;
     private float timerVisable = 0.0f;
     MeshRenderer meshRenderer;
 
     void Start(){
-         camera = GameObject.FindGameObjectWithTag("MainCamera");
+         arCamera = GameObject.FindGameObjectWithTag("MainCamera");
          meshRenderer = GetComponent<MeshRenderer>();
-         Debug.Log("isCameraNull: " + (camera == null).ToString());
+         Debug.Log("isCameraNull: " + (arCamera == null).ToString());
     }
 
   
@@ -27,7 +28,7 @@ public class CanSelect : MonoBehaviour
     void Update()
     {
         if(IsSelected){
-            meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);
+            meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);         
         }else{
             meshRenderer.material.color = Color.white;
         }
@@ -54,7 +55,7 @@ public class CanSelect : MonoBehaviour
 
      private void calcCameraToObjectDistance(){
          if(isVisable){
-            float dist = Vector3.Distance(this.transform.position, camera.transform.position);
+            float dist = Vector3.Distance(this.transform.position, arCamera.transform.position);
             if(dist < minDistanz){
                 Debug.Log($"{this.name} hat eine Distanz von {dist} zur Kamera");
                  timer += Time.fixedDeltaTime;
