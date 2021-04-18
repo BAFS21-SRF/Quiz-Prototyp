@@ -6,15 +6,6 @@ using UnityEngine.XR.ARFoundation;
 
 public class DisableTrackedVisuals : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("Disables spawned feature points and the ARPointCloudManager")]
-    bool m_DisableFeaturePoints;
-
-    public bool disableFeaturePoints
-    {
-        get => m_DisableFeaturePoints;
-        set => m_DisableFeaturePoints = value;
-    }
 
     [SerializeField]
     [Tooltip("Disables spawned planes and ARPlaneManager")]
@@ -27,15 +18,6 @@ public class DisableTrackedVisuals : MonoBehaviour
     }
 
     [SerializeField]
-    ARPointCloudManager m_PointCloudManager;
-
-    public ARPointCloudManager pointCloudManager
-    {
-        get => m_PointCloudManager;
-        set => m_PointCloudManager = value;
-    }
-    
-    [SerializeField]
     ARPlaneManager m_PlaneManager;
 
     public ARPlaneManager planeManager
@@ -46,22 +28,16 @@ public class DisableTrackedVisuals : MonoBehaviour
     
     void OnEnable()
     {
-        PlaceObjectsOnPlane.onPlacedObject += OnPlacedObject;
+        PlaceTrashOnPlane.onPlacedObject += OnPlacedObject;
     }
 
     void OnDisable()
     {
-        PlaceObjectsOnPlane.onPlacedObject -= OnPlacedObject;
+        PlaceTrashOnPlane.onPlacedObject -= OnPlacedObject;
     }
 
     void OnPlacedObject()
     {
-        if (m_DisableFeaturePoints)
-        {
-            m_PointCloudManager.SetTrackablesActive(false);
-            m_PointCloudManager.enabled = false;
-        }
-
         if (m_DisablePlaneRendering)
         {
             m_PlaneManager.SetTrackablesActive(false);

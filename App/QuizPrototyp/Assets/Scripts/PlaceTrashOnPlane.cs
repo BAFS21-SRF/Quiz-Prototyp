@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 [RequireComponent(typeof(ARRaycastManager))]
-public class PlaceObjectsOnPlane : MonoBehaviour
+public class PlaceTrashOnPlane : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("Instantiates this prefab on a plane at the touch location.")]
@@ -46,7 +46,7 @@ public class PlaceObjectsOnPlane : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && m_NumberOfPlacedObjects < 1)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -54,18 +54,9 @@ public class PlaceObjectsOnPlane : MonoBehaviour
             {
                 if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
                 {
-                    Pose hitPose = s_Hits[0].pose;
-
-                    if (m_NumberOfPlacedObjects < m_MaxNumberOfObjectsToPlace)
-                    {
-                        spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-                        
-                        m_NumberOfPlacedObjects++;
-                    }
-                    else
-                    {
-                        spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
-                    }
+                    Pose hitPose = s_Hits[0].pose;  
+                    spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+                    m_NumberOfPlacedObjects++;
                     
                     if (onPlacedObject != null)
                     {

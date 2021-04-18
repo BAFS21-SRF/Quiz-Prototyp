@@ -188,7 +188,7 @@ public class UIManager : MonoBehaviour
     {
         ARUXAnimationManager.onFadeOffComplete += FadeComplete;
 
-        PlaceObjectsOnPlane.onPlacedObject += () => m_PlacedObject = true;
+        PlaceTrashOnPlane.onPlacedObject += () => m_PlacedObject = true;
 
         GetManagers();
         m_UXOrderedQueue = new Queue<UXHandle>();
@@ -241,9 +241,13 @@ public class UIManager : MonoBehaviour
                 {
                     m_FadedOff = true;
                     m_AnimationManager.FadeOffCurrentUI();
-                    PlaneController.canStart = true;
                 }
             }
+        }
+
+        if (m_UXOrderedQueue.Count == 0 && !m_ProcessingInstructions)
+        {
+            PlaneController.canStart = true;
         }
     }
 
