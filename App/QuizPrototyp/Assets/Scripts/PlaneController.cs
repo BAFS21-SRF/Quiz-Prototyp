@@ -15,6 +15,9 @@ public class PlaneController : MonoBehaviour
 
     public GameObject objectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
+    public List<CanSelect> Awsnser = new List<CanSelect>();
+
+    public GameObject TrashCan;
 
 
     // Start is called before the first frame update
@@ -26,7 +29,7 @@ public class PlaneController : MonoBehaviour
         }
 
     }
-
+    
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -45,6 +48,24 @@ public class PlaneController : MonoBehaviour
                 }
             }
         }
+
+         foreach(GameObject gameObject in spwanedObjects){
+            CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
+            if(canSelect == null){
+                canSelect =  gameObject.GetComponent<CanSelect>();
+            }
+
+            if(canSelect.IsSelected){
+                Awsnser.Add(canSelect);
+            }
+        }
+        CanSelect trash = TrashCan.GetComponent<CanSelect>();
+       
+        if(trash.IsSelected){
+                spwanedObjects.ForEach(x =>  x.GetComponentInChildren<CanSelect>().Reset());
+                trash.IsSelected = false;
+                Awsnser = new List<CanSelect>();
+        }       
     }   
 
     private void calcMainPlane()

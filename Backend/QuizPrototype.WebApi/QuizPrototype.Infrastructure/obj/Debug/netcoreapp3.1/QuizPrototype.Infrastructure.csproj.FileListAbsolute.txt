@@ -1,0 +1,12 @@
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\bin\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.deps.json
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\bin\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.dll
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\bin\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.pdb
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.dll
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.pdb
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.csprojAssemblyReference.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.AssemblyInfo.cs
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.csproj.CopyComplete
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.dll
+C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Infrastructure\obj\Debug\netcoreapp3.1\QuizPrototype.Infrastructure.pdb
