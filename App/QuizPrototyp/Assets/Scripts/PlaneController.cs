@@ -4,7 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-
+using System.Linq;
+using UnityEngine.Networking;
 public class PlaneController : MonoBehaviour
 {
     private ARPlaneManager planeManager;
@@ -13,15 +14,14 @@ public class PlaneController : MonoBehaviour
     private int countUpdateBeforMainPlaneDetection = 0;
 
     public GameObject objectToSpawn;
-
-  
-
     public List<GameObject> spwanedObjects = new List<GameObject>();
 
+    private Frage frage;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
+        StartCoroutine(GetRequest("http://192.168.1.8:8888/api/frage"));
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
             Debug.Log($"planeManager ist null");
@@ -45,9 +45,27 @@ public class PlaneController : MonoBehaviour
                     spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
+                if(frage == null){
+                    Debug.Log("Frage NULL");
+                }else{
+                    addTExtToObjects(spwanedObjects, frage.auswahlmoeglichkeiten);
+                }
+                
             }
         }
     }   
+
+    private void addTExtToObjects(List<GameObject> gameObjects, List<Auswahl> textToAdd){
+        if(gameObjects.Count != textToAdd.Count){
+            Debug.LogError("---------------------Texte und Objekte nocht gleich viele!!!-----------------------------------");
+        }else{
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                 TextMesh text = gameObject.GetComponentInChildren<TextMesh>();
+                text.text = textToAdd[i].auswahlText;
+            }            
+        }
+    }
 
     private void calcMainPlane()
     {
@@ -56,8 +74,6 @@ public class PlaneController : MonoBehaviour
             if ((mainPlane == null
                 || ((ARPlane)plane).size.sqrMagnitude >= mainPlane.size.sqrMagnitude))
             {
-                 Debug.Log("ARPlane Class: " + ((ARPlane)plane).classification.ToString());
-                 Debug.Log("ARPlane sqrMagnitude: " + ((ARPlane)plane).size.sqrMagnitude.ToString());
                 if(mainPlane != (ARPlane)plane){
                     mainPlane = (ARPlane)plane; // Biggest Plane
                     Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
@@ -65,7 +81,6 @@ public class PlaneController : MonoBehaviour
                       Debug.Log("Boundary X " + boundary.x + " and Y " + boundary.y);  
                     }
                     Debug.Log("Center X " + mainPlane.center.x + " and Y " + mainPlane.center.y + " and Z " + mainPlane.center.z);
-                    Debug.Log("Count Boundary " + mainPlane.boundary.Length);
                 }
             }
         }
@@ -74,10 +89,17 @@ public class PlaneController : MonoBehaviour
     private void calcSpawnPoints()
     {
         Debug.Log($"**********************Calc Spawn Points********************* With {spawnPoints.Count} Spawnpoints and IsMainPlaneNull_ {mainPlane ==null}");        
-        while (spawnPoints.Count < 4 && mainPlane != null)
+        var maxX = mainPlane.boundary.Max(value => value.x);
+        var minX = mainPlane.boundary.Min(value => value.x);
+        var maxY = mainPlane.boundary.Max(value => value.y);
+        var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
+        Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
+         while(spawnPoints.Count < 4 && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
-            Vector2 newSpawnPoint = new Vector2(UnityEngine.Random.Range(-mainPlane.size.x / 2, mainPlane.size.x / 2), UnityEngine.Random.Range(-mainPlane.size.y / 2, mainPlane.size.y / 2));
+            var x = UnityEngine.Random.Range(maxX, minX);
+            var y = UnityEngine.Random.Range(maxY, minY);
+            Vector2 newSpawnPoint = new Vector2(x, y);
             Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
@@ -89,8 +111,6 @@ public class PlaneController : MonoBehaviour
 
     private bool isInPlane(Vector2 newSpawnPoint)
     {
-        Debug.Log("is Plane");
-
         int max_point = mainPlane.boundary.Length - 1;
         float total_angle = GetAngle(
             mainPlane.boundary[max_point].x, mainPlane.boundary[max_point].y,
@@ -104,8 +124,6 @@ public class PlaneController : MonoBehaviour
                 newSpawnPoint.x, newSpawnPoint.y,
                 mainPlane.boundary[i + 1].x, mainPlane.boundary[i + 1].y);
         }
-
-        Debug.Log("Total Angle " + total_angle);
 
         return (Math.Abs(total_angle) > 1);
     }
@@ -151,7 +169,6 @@ public class PlaneController : MonoBehaviour
 
     private bool isTooClose(List<Vector2> currentSpawnPoints, Vector2 newSpawnPoint)
     {
-        Debug.Log("is Too Close");
         var threshold = 1;
 
         foreach(Vector2 vec in currentSpawnPoints)
@@ -166,9 +183,34 @@ public class PlaneController : MonoBehaviour
 
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
-        var distance = Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
-        Debug.Log("Distance " + distance);
-        return distance;
+        return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+    }    
+
+    IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    frage = JsonUtility.FromJson<Frage>(webRequest.downloadHandler.text);
+                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    break;
+            }
+        }
     }
 
 }
