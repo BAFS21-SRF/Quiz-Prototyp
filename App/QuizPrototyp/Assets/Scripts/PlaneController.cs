@@ -39,10 +39,11 @@ public class PlaneController : MonoBehaviour
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
+                var prefabToSpawn = loadPrefabWithAssetId("Pig");
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
             }
@@ -189,6 +190,12 @@ public class PlaneController : MonoBehaviour
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
         return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+    }
+
+    private GameObject loadPrefabWithAssetId(string AssetId)
+    {
+        string pathToAssets = $"Prefabs/{AssetId}";
+        return Resources.Load(pathToAssets) as GameObject;
     }
 
 }
