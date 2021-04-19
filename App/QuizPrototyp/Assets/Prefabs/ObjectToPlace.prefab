@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689943406230329538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1551, y: -0.095, z: -0.0677}
+  m_LocalPosition: {x: -0.096, y: -0.073, z: -0.0677}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4326930757511310071}
@@ -81,7 +81,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689943406230329538}
-  m_Text: 
+  m_Text: TEST
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -236,3 +236,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSelected: 0
+  minDistanz: 1
+  addDistanz: 0.1
