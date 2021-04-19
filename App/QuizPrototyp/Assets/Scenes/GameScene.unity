@@ -326,8 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f73a090b7c758049890cbfdf142d69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 1347174112826311494, guid: 58669f9fd4bd663489cfa5bf25d6a1ae,
-    type: 3}
+  fallBackObjectToSpawn: {fileID: 0}
   spwanedObjects: []
   Answers: []
   TrashCan: {fileID: 2353768374029241822, guid: 66338574d09674c6eb2625be38233551,
