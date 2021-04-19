@@ -11,8 +11,9 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
+    private bool calcIsDone = true;
 
-    public GameObject objectToSpawn;
+    public GameObject fallBackObjectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
     public static bool canStart = false;
     public List<CanSelect> Answers = new List<CanSelect>();
@@ -33,14 +34,24 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canStart) {
+        if (canStart && calcIsDone) {
             canStart = false;
+            calcIsDone = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
-                var prefabToSpawn = loadPrefabWithAssetId("Pig");
+                var prefabList = new List<string> {"CowBlW", "ChickenBrown", "DuckWhite", "Pig", "SheepWhite"};
+                
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
+                    int index = UnityEngine.Random.Range(0, prefabList.Count);
+                    Debug.Log($"Random Index {index}");
+                    var prefabToSpawn = loadPrefabWithAssetId(prefabList[index]);
+                    Debug.Log($"Spawned Prefab {prefabList[index]}");
+
+                    if (prefabToSpawn == null){
+                        prefabToSpawn = fallBackObjectToSpawn;
+                    }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
                     spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
@@ -194,8 +205,7 @@ public class PlaneController : MonoBehaviour
 
     private GameObject loadPrefabWithAssetId(string AssetId)
     {
-        string pathToAssets = $"Prefabs/{AssetId}";
-        return Resources.Load(pathToAssets) as GameObject;
+        return Resources.Load(AssetId) as GameObject;
     }
 
 }
