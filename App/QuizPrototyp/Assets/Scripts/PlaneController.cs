@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 using System.Linq;
 
 public class PlaneController : MonoBehaviour
@@ -54,7 +52,9 @@ public class PlaneController : MonoBehaviour
                     }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
+                    Debug.Log($"Camera rotation x = {Camera.main.transform.rotation.x}, y = {Camera.main.transform.rotation.y}, z = {Camera.main.transform.rotation.z}");
+                    Debug.Log($"Quaternion rotation x = {Quaternion.identity.x}, y = {Quaternion.identity.y}, z = {Quaternion.identity.z}");
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
             }
