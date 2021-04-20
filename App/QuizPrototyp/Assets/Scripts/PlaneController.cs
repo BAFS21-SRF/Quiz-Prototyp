@@ -52,8 +52,6 @@ public class PlaneController : MonoBehaviour
                     }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    Debug.Log($"Camera rotation x = {Camera.main.transform.rotation.x}, y = {Camera.main.transform.rotation.y}, z = {Camera.main.transform.rotation.z}");
-                    Debug.Log($"Quaternion rotation x = {Quaternion.identity.x}, y = {Quaternion.identity.y}, z = {Quaternion.identity.z}");
                     spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
@@ -72,7 +70,7 @@ public class PlaneController : MonoBehaviour
                     Answers.Add(canSelect);
                 }
             }
-            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+            CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
 
             if (trash.IsSelected)
             {

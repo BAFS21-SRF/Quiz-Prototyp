@@ -140,3 +140,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSelected: 0
+  minDistanz: 1
+  addDistanz: 0.1
