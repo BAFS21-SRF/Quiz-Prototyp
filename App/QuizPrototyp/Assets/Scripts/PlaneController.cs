@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 using System.Linq;
 
 public class PlaneController : MonoBehaviour
@@ -11,8 +9,9 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
+    private bool calcIsDone = true;
 
-    public GameObject objectToSpawn;
+    public GameObject fallBackObjectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
     public static bool canStart = false;
     public List<CanSelect> Answers = new List<CanSelect>();
@@ -33,16 +32,27 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canStart) {
+        if (canStart && calcIsDone) {
             canStart = false;
+            calcIsDone = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
+                var prefabList = new List<string> {"CowBlW", "ChickenBrown", "DuckWhite", "Pig", "SheepWhite"};
+                
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
+                    int index = UnityEngine.Random.Range(0, prefabList.Count);
+                    Debug.Log($"Random Index {index}");
+                    var prefabToSpawn = loadPrefabWithAssetId(prefabList[index]);
+                    Debug.Log($"Spawned Prefab {prefabList[index]}");
+
+                    if (prefabToSpawn == null){
+                        prefabToSpawn = fallBackObjectToSpawn;
+                    }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
             }
@@ -60,7 +70,7 @@ public class PlaneController : MonoBehaviour
                     Answers.Add(canSelect);
                 }
             }
-            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+            CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
 
             if (trash.IsSelected)
             {
@@ -189,6 +199,11 @@ public class PlaneController : MonoBehaviour
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
         return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+    }
+
+    private GameObject loadPrefabWithAssetId(string AssetId)
+    {
+        return Resources.Load(AssetId) as GameObject;
     }
 
 }

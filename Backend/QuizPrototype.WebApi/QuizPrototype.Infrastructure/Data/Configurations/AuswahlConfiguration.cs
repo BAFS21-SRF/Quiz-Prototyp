@@ -21,6 +21,10 @@ namespace QuizPrototype.Infrastructure.Data.Configurations
             builder.Property(a => a.FrageId)
                 .IsRequired()
                 .HasColumnName("FrageId");
+
+            builder.Property(a => a.AssetId)
+                .IsRequired()
+                .HasColumnName("AssetId");
         }
     }
 }
