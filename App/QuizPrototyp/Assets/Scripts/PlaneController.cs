@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 using System.Linq;
 using UnityEngine.Networking;
 public class PlaneController : MonoBehaviour
@@ -53,7 +51,7 @@ public class PlaneController : MonoBehaviour
                     }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
                   this.StartCoroutine(this.RequestRoutine("http://192.168.1.8:8888/api/frage", spwanedObjects));             
@@ -72,7 +70,7 @@ public class PlaneController : MonoBehaviour
                     Answers.Add(canSelect);
                 }
             }
-            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+            CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
 
             if (trash.IsSelected)
             {
