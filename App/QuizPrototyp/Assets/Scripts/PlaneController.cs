@@ -1,49 +1,84 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 using System.Linq;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Threading.Tasks;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
 {
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     private List<Vector2> spawnPoints = new List<Vector2>();
+    private bool calcIsDone = true;
 
-    public GameObject objectToSpawn;
+    public GameObject fallBackObjectToSpawn;
     public List<GameObject> spwanedObjects = new List<GameObject>();
     public static bool canStart = false;
     public List<CanSelect> Answers = new List<CanSelect>();
 
     public GameObject TrashCan;
 
+    public Frage frage;
+
+    [SerializeField]
+    TMP_Text m_ReasonDisplayText;
+
+    public TMP_Text reasonDisplayText
+    {
+        get => m_ReasonDisplayText;
+        set => m_ReasonDisplayText = value;
+    }
+
+    [SerializeField]
+    GameObject m_ReasonParent;
+    
+    public GameObject reasonParent
+    {
+        get => m_ReasonParent;
+        set => m_ReasonParent = value;
+    }
+
+  
 
     // Start is called before the first frame update
-    void Start()
-    {
-        GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
-        if(planeManager == null){
-            Debug.Log($"planeManager ist nulls");
-        }
-
+    async Task Start()
+    {       
+        frage = await GetFrage("http://192.168.1.8:8888/api/frage");
     }
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canStart) {
+        if (canStart && calcIsDone) {         
+            m_ReasonDisplayText.text = frage.frageText;
+            m_ReasonParent.SetActive(true);
+            GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
+                if(planeManager == null){
+                Debug.Log($"planeManager ist nulls");
+            }
             canStart = false;
+            calcIsDone = false;
             calcMainPlane();
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
-                foreach (Vector2 randomSpanwPoint in spawnPoints){
-                    Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
-                    Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(objectToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
-                    Debug.Log("********************Object spawned*********************************");
+                int i = 0;
+                if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
+                    Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
+                }
+                foreach (var auswahl in frage.auswahlmoeglichkeiten)
+                {
+                        GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
+                    
+                    Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlane.center.y, spawnPoints[i].y);
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
+
+                        i++;
                 }
             }
 
@@ -60,7 +95,7 @@ public class PlaneController : MonoBehaviour
                     Answers.Add(canSelect);
                 }
             }
-            CanSelect trash = TrashCan.GetComponent<CanSelect>();
+            CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
 
             if (trash.IsSelected)
             {
@@ -71,7 +106,6 @@ public class PlaneController : MonoBehaviour
 
         }
     }   
-
     private void calcMainPlane()
     {
         foreach (var plane in planeManager.trackables)
@@ -105,7 +139,7 @@ public class PlaneController : MonoBehaviour
             var x = UnityEngine.Random.Range(maxX, minX);
             var y = UnityEngine.Random.Range(maxY, minY);
             Vector2 newSpawnPoint = new Vector2(x, y);
-            Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
+            //Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
@@ -189,6 +223,29 @@ public class PlaneController : MonoBehaviour
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
         return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
+    }
+
+    private async Task<Frage> GetFrage(string url){
+        var webClient = new System.Net.WebClient();
+        string json = await webClient.DownloadStringTaskAsync(new Uri(url));
+        return JsonUtility.FromJson<Frage>(json); 
+    }
+    private GameObject loadPrefabWithAssetId(string AssetId, string name)
+    {
+        Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
+        GameObject newGameObject = Resources.Load(AssetId) as GameObject;   
+        if (newGameObject == null){
+            newGameObject = fallBackObjectToSpawn;
+        }
+        LookAtCamera text = newGameObject.GetComponentInChildren<LookAtCamera>();        
+        if (text == null)
+        {
+            text = newGameObject.GetComponent<LookAtCamera>();
+            Debug.Log("text is null");
+        }
+        text.textMesh.text = name;                   
+        
+        return newGameObject;
     }
 
 }

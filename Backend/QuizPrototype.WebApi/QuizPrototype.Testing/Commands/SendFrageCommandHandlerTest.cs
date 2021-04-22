@@ -24,8 +24,8 @@ namespace QuizPrototype.Testing.Commands
                     FrageText = "Ordnen nach Grösse",
                     Auswahlmoeglichkeiten = new List<Auswahl>
                     {
-                        new Auswahl { Id = 1, AuswahlText = "Test", Order=2, FrageId = 1 },
-                        new Auswahl { Id = 2, AuswahlText = "Test2", Order=1, FrageId = 1 }
+                        new Auswahl { Id = 1, AuswahlText = "Test", Order=2, FrageId = 1, AssetId = "testAsset" },
+                        new Auswahl { Id = 2, AuswahlText = "Test2", Order=1, FrageId = 1, AssetId = "testAsset2" }
                     }
                 }));
         }
