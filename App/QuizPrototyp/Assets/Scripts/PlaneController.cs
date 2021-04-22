@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Linq;
 using UnityEngine.Networking;
+using System.Collections;
+using System.Threading.Tasks;
+
 public class PlaneController : MonoBehaviour
 {
     private ARPlaneManager planeManager;
@@ -18,11 +21,13 @@ public class PlaneController : MonoBehaviour
 
     public GameObject TrashCan;
 
-    Frage frage;
+    public Frage frage;
 
     // Start is called before the first frame update
-    void Start()
-    {      
+    async Task Start()
+    {   
+        frage = await GetFrage("http://192.168.1.8:8888/api/frage");
+      
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
             Debug.Log($"planeManager ist nulls");
@@ -39,22 +44,19 @@ public class PlaneController : MonoBehaviour
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
-                var prefabList = new List<string> {"CowBlW", "ChickenBrown", "DuckWhite", "Pig", "SheepWhite"};
-                
-                foreach (Vector2 randomSpanwPoint in spawnPoints){
-                    int index = UnityEngine.Random.Range(0, prefabList.Count);
-                    Debug.Log($"Random Index {index}");
-                    GameObject prefabToSpawn = loadPrefabWithAssetId(prefabList[index]);
-                    Debug.Log($"Spawned Prefab {prefabList[index]}");
-                    if (prefabToSpawn == null){
-                       prefabToSpawn = fallBackObjectToSpawn;
-                    }
-                    Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
-                    Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
-                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
-                    Debug.Log("********************Object spawned*********************************");
+                int i = 0;
+                if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
+                    Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
                 }
-                  this.StartCoroutine(this.RequestRoutine("http://192.168.1.8:8888/api/frage", spwanedObjects));             
+                foreach (var auswahl in frage.auswahlmoeglichkeiten)
+                {
+                     GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
+                    
+                    Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlane.center.y, spawnPoints[i].y);
+                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
+
+                     i++;
+                }
             }
 
             foreach (GameObject gameObject in spwanedObjects)
@@ -199,35 +201,28 @@ public class PlaneController : MonoBehaviour
     {
         return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
     }
-    private IEnumerator RequestRoutine(string url, List<GameObject> spawnedObjectsToAddText)
-    {
-         Debug.Log("RequestRoutine called with spawnedObjectsToAddText:" + spawnedObjectsToAddText);
-         var request = UnityWebRequest.Get(url);
-         yield return request.SendWebRequest();
-         var data = request.downloadHandler.text;
-        Frage test =JsonUtility.FromJson<Frage>(data); 
 
-        if(spawnedObjectsToAddText.Count != test.auswahlmoeglichkeiten.Count){
-            Debug.Log($"---------------------Texte({test.auswahlmoeglichkeiten.Count}) und Objekte({spawnedObjectsToAddText.Count}) nocht gleich viele!!!-----------------------------------");
-        }else{
-            for (int i = 0; i < spawnedObjectsToAddText.Count; i++)
-            {
-                LookAtCamera text = spawnedObjectsToAddText[i].GetComponentInChildren<LookAtCamera>();        
-                if (text == null)
-                {
-                    text = spawnedObjectsToAddText[i].GetComponent<LookAtCamera>();
-                }
-            if(text == null){
-                Debug.Log("text is null");
-            }
-                text.textMesh.text = test.auswahlmoeglichkeiten[i].auswahlText;
-            }            
-        }
+    private async Task<Frage> GetFrage(string url){
+        var webClient = new System.Net.WebClient();
+        string json = await webClient.DownloadStringTaskAsync(new Uri(url));
+        return JsonUtility.FromJson<Frage>(json); 
     }
-
-    private GameObject loadPrefabWithAssetId(string AssetId)
+    private GameObject loadPrefabWithAssetId(string AssetId, string name)
     {
-        return Resources.Load(AssetId) as GameObject;        
+        Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
+        GameObject newGameObject = Resources.Load(AssetId) as GameObject;   
+        if (newGameObject == null){
+            newGameObject = fallBackObjectToSpawn;
+        }
+        LookAtCamera text = newGameObject.GetComponentInChildren<LookAtCamera>();        
+        if (text == null)
+        {
+            text = newGameObject.GetComponent<LookAtCamera>();
+            Debug.Log("text is null");
+        }
+        text.textMesh.text = name;                   
+        
+        return newGameObject;
     }
 
 }

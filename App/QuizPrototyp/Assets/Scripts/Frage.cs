@@ -16,5 +16,6 @@ public class Auswahlmoeglichkeiten
     public int order;
     public int frageId;
     public int id;
+    public string assetId;
 
 }
