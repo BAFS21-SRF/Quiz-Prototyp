@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlaneManager
   - TrashCan
+  - Title
   layers:
   - Default
   - TransparentFX

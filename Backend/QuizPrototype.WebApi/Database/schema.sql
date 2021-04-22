@@ -37,7 +37,7 @@ INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALU
 GO
 INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (2, N'Schwein', 2, 1, N'Pig')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (3, N'Kuh', 1, 1, N'CowBIW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (3, N'Kuh', 1, 1, N'CowBlW')
 GO
 INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (5, N'Schaf', 3, 1, N'SheepWhite')
 GO
