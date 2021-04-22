@@ -20,19 +20,17 @@ public class PlaneController : MonoBehaviour
 
     public GameObject TrashCan;
 
-    private Frage frage;
+    Frage frage;
 
     // Start is called before the first frame update
     void Start()
-    {        
-        StartCoroutine(GetRequest("http://192.168.1.8:8888/api/frage"));
+    {      
         GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
         if(planeManager == null){
             Debug.Log($"planeManager ist nulls");
         }
-
     }
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -48,23 +46,17 @@ public class PlaneController : MonoBehaviour
                 foreach (Vector2 randomSpanwPoint in spawnPoints){
                     int index = UnityEngine.Random.Range(0, prefabList.Count);
                     Debug.Log($"Random Index {index}");
-                    var prefabToSpawn = loadPrefabWithAssetId(prefabList[index]);
+                    GameObject prefabToSpawn = loadPrefabWithAssetId(prefabList[index]);
                     Debug.Log($"Spawned Prefab {prefabList[index]}");
-
                     if (prefabToSpawn == null){
-                        prefabToSpawn = fallBackObjectToSpawn;
+                       prefabToSpawn = fallBackObjectToSpawn;
                     }
                     Vector3 spawnPoint = new Vector3(randomSpanwPoint.x, mainPlane.center.y, randomSpanwPoint.y);
                     Debug.Log("Spawn X " + spawnPoint.x + " and Y " + spawnPoint.y + " and Z " + spawnPoint.z);
                     spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, new Quaternion(0, 0, 0, 0)) as GameObject);
                     Debug.Log("********************Object spawned*********************************");
                 }
-                if(frage == null){
-                    Debug.Log("Frage NULL");
-                }else{
-                    addTExtToObjects(spwanedObjects, frage.auswahlmoeglichkeiten);
-                }
-                
+                  this.StartCoroutine(this.RequestRoutine("http://192.168.1.8:8888/api/frage", spwanedObjects));             
             }
 
             foreach (GameObject gameObject in spwanedObjects)
@@ -91,19 +83,6 @@ public class PlaneController : MonoBehaviour
 
         }
     }   
-
-    private void addTExtToObjects(List<GameObject> gameObjects, List<Auswahl> textToAdd){
-        if(gameObjects.Count != textToAdd.Count){
-            Debug.LogError("---------------------Texte und Objekte nocht gleich viele!!!-----------------------------------");
-        }else{
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                 TextMesh text = gameObject.GetComponentInChildren<TextMesh>();
-                text.text = textToAdd[i].auswahlText;
-            }            
-        }
-    }
-
     private void calcMainPlane()
     {
         foreach (var plane in planeManager.trackables)
@@ -137,7 +116,7 @@ public class PlaneController : MonoBehaviour
             var x = UnityEngine.Random.Range(maxX, minX);
             var y = UnityEngine.Random.Range(maxY, minY);
             Vector2 newSpawnPoint = new Vector2(x, y);
-            Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
+            //Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
             if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
@@ -221,38 +200,36 @@ public class PlaneController : MonoBehaviour
     private double calcDistance(Vector2 vector1, Vector2 vector2)
     {
         return Math.Sqrt(Math.Pow(Convert.ToDouble(vector2.x) - Convert.ToDouble(vector1.x), 2) + Math.Pow(Convert.ToDouble(vector2.y) - Convert.ToDouble(vector1.y), 2));
-    }    
-
-    IEnumerator GetRequest(string uri)
+    }
+    private IEnumerator RequestRoutine(string url, List<GameObject> spawnedObjectsToAddText)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
+         Debug.Log("RequestRoutine called with spawnedObjectsToAddText:" + spawnedObjectsToAddText);
+         var request = UnityWebRequest.Get(url);
+         yield return request.SendWebRequest();
+         var data = request.downloadHandler.text;
+        Frage test =JsonUtility.FromJson<Frage>(data); 
 
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            switch (webRequest.result)
+        if(spawnedObjectsToAddText.Count != test.auswahlmoeglichkeiten.Count){
+            Debug.Log($"---------------------Texte({test.auswahlmoeglichkeiten.Count}) und Objekte({spawnedObjectsToAddText.Count}) nocht gleich viele!!!-----------------------------------");
+        }else{
+            for (int i = 0; i < spawnedObjectsToAddText.Count; i++)
             {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.Success:
-                    frage = JsonUtility.FromJson<Frage>(webRequest.downloadHandler.text);
-                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                    break;
+                LookAtCamera text = spawnedObjectsToAddText[i].GetComponentInChildren<LookAtCamera>();        
+                if (text == null)
+                {
+                    text = spawnedObjectsToAddText[i].GetComponent<LookAtCamera>();
+                }
+            if(text == null){
+                Debug.Log("text is null");
             }
+                text.textMesh.text = test.auswahlmoeglichkeiten[i].auswahlText;
+            }            
         }
     }
 
     private GameObject loadPrefabWithAssetId(string AssetId)
     {
-        return Resources.Load(AssetId) as GameObject;
+        return Resources.Load(AssetId) as GameObject;        
     }
 
 }

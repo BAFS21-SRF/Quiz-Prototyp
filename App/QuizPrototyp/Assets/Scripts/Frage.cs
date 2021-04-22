@@ -5,18 +5,16 @@ using System.Collections.Generic;
 public class Frage
 {
     public string frageText;
-    public List<Auswahl> auswahlmoeglichkeiten;
-    public long id;
+    public List<Auswahlmoeglichkeiten> auswahlmoeglichkeiten;
+    public int id;
 }
 
 [Serializable]
-public class Auswahl
+public class Auswahlmoeglichkeiten
 {
-    public long id;
+   public string auswahlText;
     public int order;
-
-    public long frageId;
-
-    public string auswahlText;
+    public int frageId;
+    public int id;
 
 }
