@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
 {
@@ -23,21 +25,42 @@ public class PlaneController : MonoBehaviour
 
     public Frage frage;
 
+    [SerializeField]
+    TMP_Text m_ReasonDisplayText;
+
+    public TMP_Text reasonDisplayText
+    {
+        get => m_ReasonDisplayText;
+        set => m_ReasonDisplayText = value;
+    }
+
+    [SerializeField]
+    GameObject m_ReasonParent;
+    
+    public GameObject reasonParent
+    {
+        get => m_ReasonParent;
+        set => m_ReasonParent = value;
+    }
+
+  
+
     // Start is called before the first frame update
     async Task Start()
-    {   
+    {       
         frage = await GetFrage("http://192.168.1.8:8888/api/frage");
-      
-        GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
-        if(planeManager == null){
-            Debug.Log($"planeManager ist nulls");
-        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canStart && calcIsDone) {
+        if (canStart && calcIsDone) {         
+            m_ReasonDisplayText.text = frage.frageText;
+            m_ReasonParent.SetActive(true);
+            GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
+                if(planeManager == null){
+                Debug.Log($"planeManager ist nulls");
+            }
             canStart = false;
             calcIsDone = false;
             calcMainPlane();
@@ -50,12 +73,12 @@ public class PlaneController : MonoBehaviour
                 }
                 foreach (var auswahl in frage.auswahlmoeglichkeiten)
                 {
-                     GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
+                        GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
                     
                     Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlane.center.y, spawnPoints[i].y);
                     spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
 
-                     i++;
+                        i++;
                 }
             }
 
