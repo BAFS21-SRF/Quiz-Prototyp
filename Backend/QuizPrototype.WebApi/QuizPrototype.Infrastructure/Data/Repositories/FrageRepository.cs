@@ -16,10 +16,23 @@ namespace QuizPrototype.Infrastructure.Data.Repositories
             this.context = context;
         }
 
+        public async Task<Frage> GetById(long id)
+        {
+            var frage = await context.Frage.Where(f => f.Id == id).SingleOrDefaultAsync();
+            if (frage != null)
+            {
+                frage.Auswahlmoeglichkeiten = await context.Auswahl.Where(x => x.FrageId == frage.Id).ToListAsync();
+            }
+            return frage;
+        }
+
         public async Task<Frage> GetCurrentFrage()
         {
             var frage = await context.Frage.FirstOrDefaultAsync();
-            frage.Auswahlmoeglichkeiten = await context.Auswahl.Where(x => x.FrageId == frage.Id).ToListAsync();
+            if (frage != null)
+            {
+                frage.Auswahlmoeglichkeiten = await context.Auswahl.Where(x => x.FrageId == frage.Id).ToListAsync();
+            }
             return frage;
         }
     }
