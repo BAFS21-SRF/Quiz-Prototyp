@@ -604,41 +604,42 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danie\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Users\\Daniel\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
       "projectName": "QuizPrototype.Infrastructure",
-      "projectPath": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\QuizPrototype.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://techgroup.pkgs.visualstudio.com/_packaging/Techgroup.Shared/nuget/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
-              "projectPath": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj"
+            "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj": {
+              "projectPath": "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj"
             }
           }
         }
@@ -677,7 +678,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

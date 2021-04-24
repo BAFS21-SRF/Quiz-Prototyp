@@ -8,7 +8,9 @@ services:
       - "8888:80"
     environment:
         ConnectionStrings__Default: Server=db-srv; Database=QuizPrototype; User=sa; Password=Top-Secret;
-     
+    depends_on:
+        db-srv:
+          condition: service_healthy     
     
   db-srv:
     image: custom-sql-server
@@ -24,4 +26,14 @@ services:
         interval: 10s
         timeout: 5s
         retries: 5
-        start_period: 20s
+        start_period: 10s
+        
+  db-migrator:
+    build:
+      context: .
+      dockerfile: QuizPrototype.DbMigration/Dockerfile
+    environment:
+      EMAIL_DB: "server=db-srv; Database=QuizPrototype; User Id=sa; Password=Top-Secret; Connection Timeout=60; ConnectRetryCount=8; ConnectRetryInterval=5"
+    depends_on:
+        db-srv:
+          condition: service_healthy

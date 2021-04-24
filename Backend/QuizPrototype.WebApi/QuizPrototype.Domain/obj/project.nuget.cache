@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hVN59cxlxwobLjqrZqyZ5FGIfAUYcgVmmZjtjs/RTIwcvr0wgBkgz26M1rRSKBe8iDDZG/x2P4/mF3KG4Z1p1A==",
+  "dgSpecHash": "z6SasuqiVUbtJCzkg/Gx0vKXTCsixiB4y5jT7BnSZQelgh92kIot4KhBzeeKEDF+TTM5XuaPNtRjcl9KGiX3Dg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\Desktop\\BA Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Daniel\\Desktop\\Ba Work\\Backend\\QuizPrototype.WebApi\\QuizPrototype.Domain\\QuizPrototype.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
