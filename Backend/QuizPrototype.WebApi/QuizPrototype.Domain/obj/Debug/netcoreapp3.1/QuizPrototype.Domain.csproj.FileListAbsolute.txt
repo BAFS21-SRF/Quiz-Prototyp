@@ -1,9 +1,0 @@
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.deps.json
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.dll
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\bin\Debug\netcoreapp3.1\QuizPrototype.Domain.pdb
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.csprojAssemblyReference.cache
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.AssemblyInfoInputs.cache
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.AssemblyInfo.cs
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.csproj.CoreCompileInputs.cache
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.dll
-C:\Users\danie\Desktop\BA Work\Backend\QuizPrototype.WebApi\QuizPrototype.Domain\obj\Debug\netcoreapp3.1\QuizPrototype.Domain.pdb

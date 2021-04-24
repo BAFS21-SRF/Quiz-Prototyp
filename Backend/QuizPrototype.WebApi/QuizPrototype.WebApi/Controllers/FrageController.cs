@@ -18,10 +18,11 @@ namespace QuizPrototype.WebApi.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<Frage>> GetCurrentFrage()
+        public async Task<ActionResult<Frage>> GetCurrentFrage([FromQuery] string guid)
         {
-            var frage = await mediator.Send(new SendFrageCommand());
+            var frage = await mediator.Send(new SendFrageCommand { Guid = guid });
             return Ok(frage);
         }
+
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class CanSelect : MonoBehaviour
 {
 
-    private GameObject camera;
+    private GameObject arCamera;
     private bool isVisable;
-    public bool IsSelected = false;
+    public bool IsSelected = false;   
 
     private float waitTime = 2.0f;
     private float timer = 0.0f;
@@ -18,9 +18,9 @@ public class CanSelect : MonoBehaviour
     MeshRenderer meshRenderer;
 
     void Start(){
-         camera = GameObject.FindGameObjectWithTag("MainCamera");
+         arCamera = GameObject.FindGameObjectWithTag("MainCamera");
          meshRenderer = GetComponent<MeshRenderer>();
-         Debug.Log("isCameraNull: " + (camera == null).ToString());
+         Debug.Log("isCameraNull: " + (arCamera == null).ToString());
     }
 
   
@@ -55,15 +55,15 @@ public class CanSelect : MonoBehaviour
 
      private void calcCameraToObjectDistance(){
          if(isVisable){
-            float dist = Vector3.Distance(this.transform.position, camera.transform.position);
+            float dist = Vector3.Distance(this.transform.position, arCamera.transform.position);
             if(dist < minDistanz){
-                Debug.Log($"{this.name} hat eine Distanz von {dist} zur Kamera");
+                //Debug.Log($"{this.name} hat eine Distanz von {dist} zur Kamera");
                  timer += Time.fixedDeltaTime;
 
                 if (timer > waitTime)
                 {
                    IsSelected = true;
-                   Debug.Log($"Selected: IsSelected");
+                   //Debug.Log($"Selected: IsSelected");
                 }
             }else{
                 timer = 0.0f;
@@ -73,14 +73,12 @@ public class CanSelect : MonoBehaviour
 
     void OnBecameVisible()
     {
-        Debug.Log("IsVisable");
         isVisable = true;
     }
 
     void OnBecameInvisible()
     {
         timerVisable = 0.0f;
-         Debug.Log("IsNotVisable");
         isVisable = false;
     }
 }

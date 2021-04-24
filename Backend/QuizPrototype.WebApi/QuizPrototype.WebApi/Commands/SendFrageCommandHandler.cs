@@ -9,15 +9,22 @@ namespace QuizPrototype.WebApi.Commands
     public class SendFrageCommandHandler : IRequestHandler<SendFrageCommand, Frage>
     {
         private readonly IFrageRepository frageRepository;
+        private readonly IGameService gameService;
 
-        public SendFrageCommandHandler(IFrageRepository frageRepository)
+        public SendFrageCommandHandler(IFrageRepository frageRepository, IGameService gameService)
         {
             this.frageRepository = frageRepository;
+            this.gameService = gameService;
         }
 
         public Task<Frage> Handle(SendFrageCommand request, CancellationToken cancellationToken)
         {
-            return frageRepository.GetCurrentFrage();
+            if (string.IsNullOrEmpty(request.Guid))
+            {
+                return frageRepository.GetCurrentFrage();
+            }
+
+            return gameService.GetNextFrage(request.Guid);
         }
     }
 }

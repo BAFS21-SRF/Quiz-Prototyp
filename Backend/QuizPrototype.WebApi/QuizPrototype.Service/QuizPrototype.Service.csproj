@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\QuizPrototype.Domain\QuizPrototype.Domain.csproj" />
+    <ProjectReference Include="..\QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
