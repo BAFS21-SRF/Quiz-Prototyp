@@ -9,6 +9,8 @@ namespace QuizPrototype.Infrastructure.Data.Context
         public DbSet<Frage> Frage { get; set; }
         public DbSet<Auswahl> Auswahl { get; set; }
 
+        public DbSet<Game> Game { get; set; }
+
         public QuizPrototypeDbContext(DbContextOptions<QuizPrototypeDbContext> options) : base(options)
         {
         }
@@ -20,6 +22,9 @@ namespace QuizPrototype.Infrastructure.Data.Context
 
             builder
                 .ApplyConfiguration(new AuswahlConfiguration());
+
+            builder
+                .ApplyConfiguration(new GameConfiguration());
         }
 
     }

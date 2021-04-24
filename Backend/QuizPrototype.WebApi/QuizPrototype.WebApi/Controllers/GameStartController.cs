@@ -8,21 +8,20 @@ namespace QuizPrototype.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FrageController : ControllerBase
+    public class GameStartController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public FrageController(IMediator mediator)
+        public GameStartController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<Frage>> GetCurrentFrage([FromQuery] string guid)
+        public async Task<ActionResult<Game>> Start()
         {
-            var frage = await mediator.Send(new SendFrageCommand { Guid = guid });
-            return Ok(frage);
+            var gameStart = await mediator.Send(new SendGameStartCommand());
+            return Ok(gameStart);
         }
-
     }
 }

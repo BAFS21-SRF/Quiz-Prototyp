@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace QuizPrototype.Domain.Interfaces
 {
-    public interface IFrageRepository
+    public interface IGameService
     {
-        Task<Frage> GetCurrentFrage();
-        Task<Frage> GetById(long id);
+        Task<Game> StartGame();
+        Task<Frage> GetNextFrage(string guid);
     }
 }

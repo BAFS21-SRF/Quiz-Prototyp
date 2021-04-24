@@ -3,8 +3,7 @@ using QuizPrototype.Domain.Entities;
 
 namespace QuizPrototype.WebApi.Commands
 {
-    public class SendFrageCommand : IRequest<Frage>
+    public class SendGameStartCommand : IRequest<Game>
     {
-        public string Guid { get; set; }
     }
 }
