@@ -48,7 +48,7 @@ public class PlaneController : MonoBehaviour
     // Start is called before the first frame update
     async Task Start()
     {       
-        frage = await GetFrage("http://192.168.1.8:8888/api/frage");
+        frage = await GetFrage($"http://192.168.1.8:8888/api/frage?giud={GameManager.guidId}");
     }
 
     // Update is called once per frame
