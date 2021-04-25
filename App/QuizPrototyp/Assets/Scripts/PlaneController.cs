@@ -25,6 +25,8 @@ public class PlaneController : MonoBehaviour
 
     public Frage frage;
 
+    private int antwortCount;
+
     [SerializeField]
     TMP_Text m_ReasonDisplayText;
 
@@ -46,16 +48,47 @@ public class PlaneController : MonoBehaviour
   
 
     // Start is called before the first frame update
-    async Task Start()
+    void Start()
     {       
+      
+    }
+
+    private async Task SpwanFrage(){
+        Answers = new List<CanSelect>();
+        foreach (var toDestroy in spwanedObjects)
+        {
+            Destroy(toDestroy);
+        }
+        spwanedObjects = new List<GameObject>();
         frage = await GetFrage($"http://192.168.1.8:8888/api/frage?guid={GameManager.guidId}");
+        m_ReasonDisplayText.text = frage.frageText;
+        antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
+        int i = 0;
+        if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
+            Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
+        }
+        foreach (var auswahl in frage.auswahlmoeglichkeiten)
+        {
+            GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
+            
+            Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlane.center.y, spawnPoints[i].y);
+            spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
+
+            i++;
+        }
+    }
+
+    private int GetAntwortCount(List<Auswahlmoeglichkeiten> auswahlmoeglichkeiten)
+    {
+        int count = auswahlmoeglichkeiten.Where(x => x.order > 0).Count();
+        Debug.Log($"GetAntwortCount: {count}");
+        return count;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    async Task FixedUpdate()
     {
-        if (canStart && calcIsDone) {         
-            m_ReasonDisplayText.text = frage.frageText;
+        if (canStart && calcIsDone) {            
             m_ReasonParent.SetActive(true);
             GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
                 if(planeManager == null){
@@ -67,43 +100,37 @@ public class PlaneController : MonoBehaviour
             calcSpawnPoints();
             if (spawnPoints.Count > 0)
             {
-                int i = 0;
-                if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
-                    Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
-                }
-                foreach (var auswahl in frage.auswahlmoeglichkeiten)
-                {
-                        GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);                      
-                    
-                    Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlane.center.y, spawnPoints[i].y);
-                    spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
+               await SpwanFrage();
+            }          
 
-                        i++;
-                }
-            }
+        }
 
-            foreach (GameObject gameObject in spwanedObjects)
+        Debug.Log($"-----------------SpawndeObjectCount: {spwanedObjects.Count}--------------------");
+        foreach (GameObject gameObject in spwanedObjects)
+        {
+            CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
+            if (canSelect == null)
             {
-                CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
-                if (canSelect == null)
-                {
-                    canSelect = gameObject.GetComponent<CanSelect>();
-                }
-
-                if (canSelect.IsSelected)
-                {
-                    Answers.Add(canSelect);
-                }
+                canSelect = gameObject.GetComponent<CanSelect>();
             }
-            CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
-
-            if (trash.IsSelected)
+            Debug.Log(canSelect.IsSelected);
+            if (canSelect.IsSelected && !Answers.Contains(canSelect))
             {
-                spwanedObjects.ForEach(x => x.GetComponentInChildren<CanSelect>().Reset());
-                trash.IsSelected = false;
-                Answers = new List<CanSelect>();
+                Answers.Add(canSelect);
+                Debug.Log("Added to awnser");
             }
+        }
+        CanSelect trash = TrashCan.GetComponentInChildren<CanSelect>();
 
+        if (trash.IsSelected)
+        {
+            spwanedObjects.ForEach(x => x.GetComponentInChildren<CanSelect>().Reset());
+            trash.IsSelected = false;
+            Answers = new List<CanSelect>();
+        }          
+
+        if(Answers.Distinct<CanSelect>().Count() == antwortCount){
+            await SpwanFrage();
         }
     }   
     private void calcMainPlane()
@@ -226,7 +253,6 @@ public class PlaneController : MonoBehaviour
     }
 
     private async Task<Frage> GetFrage(string url){
-        Debug.Log(url);
         var webClient = new System.Net.WebClient();
         string json = await webClient.DownloadStringTaskAsync(new Uri(url));
         return JsonUtility.FromJson<Frage>(json); 
