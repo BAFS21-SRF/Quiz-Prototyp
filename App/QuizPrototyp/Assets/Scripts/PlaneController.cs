@@ -48,7 +48,7 @@ public class PlaneController : MonoBehaviour
     // Start is called before the first frame update
     async Task Start()
     {       
-        frage = await GetFrage($"http://192.168.1.8:8888/api/frage?giud={GameManager.guidId}");
+        frage = await GetFrage($"http://192.168.1.8:8888/api/frage?guid={GameManager.guidId}");
     }
 
     // Update is called once per frame
@@ -226,6 +226,7 @@ public class PlaneController : MonoBehaviour
     }
 
     private async Task<Frage> GetFrage(string url){
+        Debug.Log(url);
         var webClient = new System.Net.WebClient();
         string json = await webClient.DownloadStringTaskAsync(new Uri(url));
         return JsonUtility.FromJson<Frage>(json); 
