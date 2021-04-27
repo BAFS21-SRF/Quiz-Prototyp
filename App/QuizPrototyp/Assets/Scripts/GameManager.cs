@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static string guidId;
+
+    private ApiController apiController;
     bool getNextScene;
     public void NextScene(){
         getNextScene = true;
@@ -17,8 +19,9 @@ public class GameManager : MonoBehaviour
     async Task Update(){
         if(getNextScene){
             getNextScene=false;
+            apiController = new ApiController();
             Debug.Log("NextScene called");
-            GameStart gameStart = await GetRequest<GameStart>("http://192.168.1.8:8888/api/gamestart");
+            GameStart gameStart = await apiController.GetRequest<GameStart>("/gamestart", true);
             if(gameStart == null){
                 Debug.Log("gameStart null");
             }
@@ -33,13 +36,5 @@ public class GameManager : MonoBehaviour
 
     public void Quit(){
          Application.Quit();
-    }
-
-    private async Task<T> GetRequest<T>(string url){
-         Debug.Log(url);
-        var webClient = new System.Net.WebClient();
-        string json = await webClient.DownloadStringTaskAsync(new Uri(url));
-        Debug.Log(json);
-        return JsonUtility.FromJson<T>(json); 
-    }
+    }  
 }
