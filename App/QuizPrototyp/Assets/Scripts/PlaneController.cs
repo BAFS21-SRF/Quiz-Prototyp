@@ -16,7 +16,6 @@ public class PlaneController : MonoBehaviour
     public GameController gameController;
     public int minDistanceToOtherObjects = 1;
     public int countOfSpawnPoints = 4;
-    public GameObject TrashCan;
 
     async Task FixedUpdate()
     {
@@ -60,9 +59,8 @@ public class PlaneController : MonoBehaviour
         var minX = mainPlane.boundary.Min(value => value.x);
         var maxY = mainPlane.boundary.Max(value => value.y);
         var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
-
-        var trashPosition = TrashCan.GetComponentInChildren<CanSelect>().transform.position;
-
+        
+        var trashPosition = GetComponent<PlaceTrashOnPlane>().spawnedObject.GetComponentInChildren<CanSelect>().transform.position;
         var trashList = new List<Vector2> { new Vector2 { x = trashPosition.x, y = trashPosition.z } };
         Debug.Log($"TrahsPosition X = {trashPosition.x} and Y = {trashList[0].y}");
 

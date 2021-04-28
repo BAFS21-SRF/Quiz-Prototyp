@@ -8,8 +8,8 @@ using TMPro;
 public class GameController : MonoBehaviour
 { 
     public GameObject fallBackObjectToSpawn;
-    public GameObject TrashCan;
 
+    private GameObject TrashCan;
     private List<Vector2> spawnPoints = new List<Vector2>();
     private float mainPlaneY;
     private List<GameObject> spwanedObjects = new List<GameObject>();
@@ -38,11 +38,12 @@ public class GameController : MonoBehaviour
          apiController = new ApiController();
     }
 
-    public async Task Init(List<Vector2> spawnPoints, float mainPlaneY){
-       
-       this.mainPlaneY = mainPlaneY;
-       this.spawnPoints = spawnPoints;
-       await SpwanFrage();
+    public async Task Init(List<Vector2> spawnPoints, float mainPlaneY)
+    {
+        TrashCan = GetComponent<PlaceTrashOnPlane>().spawnedObject;
+        this.mainPlaneY = mainPlaneY;
+        this.spawnPoints = spawnPoints;
+        await SpwanFrage();
     }
 
     async Task FixedUpdate(){
