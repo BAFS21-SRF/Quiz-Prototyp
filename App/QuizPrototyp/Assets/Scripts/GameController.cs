@@ -1,13 +1,8 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 using System.Linq;
-using UnityEngine.Networking;
-using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
-using UnityEngine.UI;
 
 
 public class GameController : MonoBehaviour
@@ -66,14 +61,14 @@ public class GameController : MonoBehaviour
         frage = await apiController.GetRequest<Frage>($"/frage?guid={GameManager.guidId}");
         m_ReasonDisplayText.text = frage.frageText;
         antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
-        int i = 0;
+        int i = UnityEngine.Random.Range(0, spawnPoints.Count); // Random start index for spawning
         if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
             Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
         }
         foreach (var auswahl in frage.auswahlmoeglichkeiten)
         {
             GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);
-            Vector3 spawnPoint = new Vector3(spawnPoints[i].x, mainPlaneY, spawnPoints[i].y);
+            Vector3 spawnPoint = new Vector3(spawnPoints[i % spawnPoints.Count].x, mainPlaneY, spawnPoints[i % spawnPoints.Count].y);
             spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
             i++;
         }
