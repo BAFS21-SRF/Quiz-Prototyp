@@ -65,7 +65,9 @@ public class PlaneController : MonoBehaviour
         Debug.Log($"TrahsPosition X = {trashPosition.x} and Y = {trashList[0].y}");
 
         Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
-        while (spawnPoints.Count < countOfSpawnPoints && mainPlane != null)
+
+        var loopCount = 0;
+        while ((spawnPoints.Count < countOfSpawnPoints || loopCount < 150) && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
             var x = UnityEngine.Random.Range(maxX, minX);
@@ -76,6 +78,7 @@ public class PlaneController : MonoBehaviour
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);
             }
+            loopCount++;
         }
     }
 
