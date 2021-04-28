@@ -71,7 +71,7 @@ public class PlaneController : MonoBehaviour
             var x = UnityEngine.Random.Range(maxX, minX);
             var y = UnityEngine.Random.Range(maxY, minY);
             Vector2 newSpawnPoint = new Vector2(x, y);
-            if (IsInPlane(newSpawnPoint) && !IsTooClose(spawnPoints, newSpawnPoint))
+            if (IsInPlane(newSpawnPoint) && !IsTooClose(trashList, newSpawnPoint) && !IsTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);
