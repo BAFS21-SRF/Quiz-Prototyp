@@ -15,7 +15,8 @@ public class PlaneController : MonoBehaviour
 
     public GameController gameController;
     public int minDistanceToOtherObjects = 1;
-    public int countOfSpawnPoints = 7;
+    public int countOfSpawnPoints = 4;
+    public GameObject TrashCan;
 
     async Task FixedUpdate()
     {
@@ -32,6 +33,7 @@ public class PlaneController : MonoBehaviour
             calcIsDone = true; // Since the calculation can take longer and is otherwise started more times
             CalcMainPlane();
             CalcSpawnPoints();
+            Debug.Log($"Spawnpoints Count: {spawnPoints.Count}");
             await gameController.Init(spawnPoints, mainPlane.center.y);
         }
     }
@@ -45,9 +47,6 @@ public class PlaneController : MonoBehaviour
                 if(mainPlane != plane){
                     mainPlane = plane; // Biggest Plane
                     Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
-                    foreach (Vector2 boundary in mainPlane.boundary){
-                      Debug.Log("Boundary X " + boundary.x + " and Y " + boundary.y);  
-                    }
                     Debug.Log("Center X " + mainPlane.center.x + " and Y " + mainPlane.center.y + " and Z " + mainPlane.center.z);
                 }
             }
@@ -62,8 +61,10 @@ public class PlaneController : MonoBehaviour
         var maxY = mainPlane.boundary.Max(value => value.y);
         var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
 
-        var trashList = new List<Vector2> { new Vector2 { x = gameController.TrashCan.transform.position.x, y = gameController.TrashCan.transform.position.z } };
-        Debug.Log($"TrahsPosition X = {trashList[0].x} and Y = {trashList[0].y}");
+        var trashPosition = TrashCan.GetComponentInChildren<CanSelect>().transform.position;
+
+        var trashList = new List<Vector2> { new Vector2 { x = trashPosition.x, y = trashPosition.z } };
+        Debug.Log($"TrahsPosition X = {trashPosition.x} and Y = {trashList[0].y}");
 
         Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
         while (spawnPoints.Count < countOfSpawnPoints && mainPlane != null)
@@ -72,7 +73,7 @@ public class PlaneController : MonoBehaviour
             var x = UnityEngine.Random.Range(maxX, minX);
             var y = UnityEngine.Random.Range(maxY, minY);
             Vector2 newSpawnPoint = new Vector2(x, y);
-            if (IsInPlane(newSpawnPoint) && !IsTooClose(trashList, newSpawnPoint) && !IsTooClose(spawnPoints, newSpawnPoint))
+            if (IsInPlane(newSpawnPoint) && !IsTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);

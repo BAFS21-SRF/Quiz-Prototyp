@@ -7,15 +7,16 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 { 
-    public List<Vector2> spawnPoints = new List<Vector2>();
-
-    private float mainPlaneY;
     public GameObject fallBackObjectToSpawn;
-    public List<GameObject> spwanedObjects = new List<GameObject>();
-    public List<CanSelect> Answers = new List<CanSelect>();
     public GameObject TrashCan;
-    public Frage frage;
-    private int antwortCount;
+
+    private List<Vector2> spawnPoints = new List<Vector2>();
+    private float mainPlaneY;
+    private List<GameObject> spwanedObjects = new List<GameObject>();
+    private List<CanSelect> Answers = new List<CanSelect>();
+    private Frage frage = null;
+    private int antwortCount = 1;
+
     [SerializeField]
     TMP_Text m_ReasonDisplayText;
     public TMP_Text reasonDisplayText
@@ -45,7 +46,7 @@ public class GameController : MonoBehaviour
     }
 
     async Task FixedUpdate(){
-        if(spawnPoints.Count >= 4){           
+        if(spawnPoints.Count >= 4 && frage != null){           
              m_ReasonParent.SetActive(true);
             await PlayGame();
         }        
@@ -122,7 +123,8 @@ public class GameController : MonoBehaviour
     }
 
     private async Task CheckForNextFrage(){
-        if(Answers.Distinct<CanSelect>().Count() == antwortCount){
+        if(Answers.Count() == antwortCount){
+            Debug.Log("SpawnFrage vom NextFrage");
             await SpwanFrage();
         }
     }
