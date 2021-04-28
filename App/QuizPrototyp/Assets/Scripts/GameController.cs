@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour
 
     public async Task Init(List<Vector2> spawnPoints, float mainPlaneY)
     {
-        TrashCan = GetComponent<PlaceTrashOnPlane>().spawnedObject;
+        TrashCan = PlaceTrashOnPlane.spawnedObject;
         this.mainPlaneY = mainPlaneY;
         this.spawnPoints = spawnPoints;
         await SpwanFrage();
