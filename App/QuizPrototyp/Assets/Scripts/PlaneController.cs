@@ -15,7 +15,7 @@ public class PlaneController : MonoBehaviour
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
     public static bool canStart = false;  
-    private bool calcIsDone = false;    
+    private bool calcIsDone = false;
 
     public GameController gameController;
 
@@ -64,6 +64,10 @@ public class PlaneController : MonoBehaviour
         var minX = mainPlane.boundary.Min(value => value.x);
         var maxY = mainPlane.boundary.Max(value => value.y);
         var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
+
+        var trashList = new List<Vector2> { new Vector2 { x = gameController.TrashCan.transform.position.x, y = gameController.TrashCan.transform.position.z } };
+        Debug.Log($"TrahsPosition X = {trashList[0].x} and Y = {trashList[0].y}");
+
         Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
         while (spawnPoints.Count < 4 && mainPlane != null)
         {
@@ -71,8 +75,7 @@ public class PlaneController : MonoBehaviour
             var x = UnityEngine.Random.Range(maxX, minX);
             var y = UnityEngine.Random.Range(maxY, minY);
             Vector2 newSpawnPoint = new Vector2(x, y);
-            //Debug.Log("NewSpawnPoint X " + newSpawnPoint.x + " Y " + newSpawnPoint.y);
-            if (isInPlane(newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
+            if (isInPlane(newSpawnPoint) && !isTooClose(trashList, newSpawnPoint) && !isTooClose(spawnPoints, newSpawnPoint))
             {
                 Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);
