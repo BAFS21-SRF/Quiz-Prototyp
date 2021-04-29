@@ -42,11 +42,10 @@ public class CanSelect : MonoBehaviour
     }
 
      private void calcCameraToObjectDistance(){
-         if(isVisable){
+         if(isVisable && !IsSelected){
             var objectPosition = new Vector2 { x = transform.position.x, y = transform.position.z };
             var cameraPosition = new Vector2 { x = arCamera.transform.position.x, y = arCamera.transform.position.z };
             float dist = Vector2.Distance(objectPosition, cameraPosition);
-            Debug.Log($"Distanz zum Objekt = {dist}");
             if(dist < minDistanz){
                  timer += Time.fixedDeltaTime;
 
