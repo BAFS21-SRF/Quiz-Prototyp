@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using QuizPrototype.Domain.Interfaces;
 using QuizPrototype.Infrastructure.Data.Context;
 using QuizPrototype.Infrastructure.Data.Repositories;
+using QuizPrototype.Service;
 
 namespace QuizPrototype.WebApi
 {
@@ -29,6 +30,9 @@ namespace QuizPrototype.WebApi
             services.AddDbContext<QuizPrototypeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddTransient<IFrageRepository, FrageRepository>();
+            services.AddTransient<IGameRepository, GameRepository>();
+            services.AddTransient<IGameService, GameService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

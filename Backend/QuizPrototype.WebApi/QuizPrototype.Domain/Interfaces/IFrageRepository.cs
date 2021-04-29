@@ -6,5 +6,6 @@ namespace QuizPrototype.Domain.Interfaces
     public interface IFrageRepository
     {
         Task<Frage> GetCurrentFrage();
+        Task<Frage> GetById(long id);
     }
 }

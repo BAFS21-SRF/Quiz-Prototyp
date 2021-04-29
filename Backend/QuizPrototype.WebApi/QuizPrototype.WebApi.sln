@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31129.286
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizPrototype.WebApi", "QuizPrototype.WebApi\QuizPrototype.WebApi.csproj", "{96FC91FD-BD4B-4FFA-8B6C-D89E7C6364B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizPrototype.Testing", "QuizPrototype.Testing\QuizPrototype.Testing.csproj", "{6A90FB77-AB59-4309-86CB-6F60BBCA6FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizPrototype.Testing", "QuizPrototype.Testing\QuizPrototype.Testing.csproj", "{6A90FB77-AB59-4309-86CB-6F60BBCA6FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizPrototype.Domain", "QuizPrototype.Domain\QuizPrototype.Domain.csproj", "{F631C764-DDB2-4E31-B0C8-99E7818CA80E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizPrototype.Domain", "QuizPrototype.Domain\QuizPrototype.Domain.csproj", "{F631C764-DDB2-4E31-B0C8-99E7818CA80E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizPrototype.Service", "QuizPrototype.Service\QuizPrototype.Service.csproj", "{44FDBFC1-E0A6-4A9A-A8A7-5289C3964608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizPrototype.Service", "QuizPrototype.Service\QuizPrototype.Service.csproj", "{44FDBFC1-E0A6-4A9A-A8A7-5289C3964608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizPrototype.Infrastructure", "QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj", "{B52E04AA-2C45-477D-AD92-B29955111624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizPrototype.Infrastructure", "QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj", "{B52E04AA-2C45-477D-AD92-B29955111624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizPrototype.DbMigration", "QuizPrototype.DbMigration\QuizPrototype.DbMigration.csproj", "{E56DD54D-E929-4CF9-917C-404FC20E71EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B52E04AA-2C45-477D-AD92-B29955111624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B52E04AA-2C45-477D-AD92-B29955111624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B52E04AA-2C45-477D-AD92-B29955111624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56DD54D-E929-4CF9-917C-404FC20E71EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56DD54D-E929-4CF9-917C-404FC20E71EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56DD54D-E929-4CF9-917C-404FC20E71EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56DD54D-E929-4CF9-917C-404FC20E71EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

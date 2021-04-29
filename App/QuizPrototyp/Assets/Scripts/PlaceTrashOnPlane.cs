@@ -23,7 +23,7 @@ public class PlaceTrashOnPlane : MonoBehaviour
     /// <summary>
     /// The object instantiated as a result of a successful raycast intersection with a plane.
     /// </summary>
-    public GameObject spawnedObject { get; private set; }
+    public static GameObject spawnedObject { get; private set; }
 
     /// <summary>
     /// Invoked whenever an object is placed in on a plane.

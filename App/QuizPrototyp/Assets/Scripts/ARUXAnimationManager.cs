@@ -151,7 +151,7 @@ public class ARUXAnimationManager : MonoBehaviour
     float m_TweenDuration;
 
     const string k_MoveDeviceText = "Move Device Slowly";
-    const string k_TapToPlaceText = "Tap to Place AR";
+    const string k_TapToPlaceText = "Tap to Place TrashBin";
     const string k_FindABodyText = "Find a Body to Track";
     const string k_FindAFaceText = "Find a Face to Track";
     const string k_FindClipText = "Find an Image to Track";
@@ -169,24 +169,6 @@ public class ARUXAnimationManager : MonoBehaviour
     }
 
     RenderTexture m_RenderTexture;
-    
-    [SerializeField]
-    LocalizationManager m_LocalizationManager;
-    
-    public LocalizationManager localizationManager
-    {
-        get => m_LocalizationManager;
-        set => m_LocalizationManager = value;
-    }
-
-    [SerializeField]
-    bool m_LocalizeText = true;
-
-    public bool localizeText
-    {
-        get => m_LocalizeText;
-        set => m_LocalizeText = value;
-    }
 
     void Start()
     {
@@ -258,14 +240,8 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_TapToPlaceClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedTapToPlace;
-        }
-        else
-        {
-            m_InstructionText.text = k_TapToPlaceText;
-        }
+
+       m_InstructionText.text = k_TapToPlaceText;
         
         m_FadeOn = true;
     }
@@ -274,14 +250,7 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_FindImageClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedImage;
-        }
-        else
-        {
-            m_InstructionText.text = k_FindClipText;
-        }
+        m_InstructionText.text = k_FindClipText;
         m_FadeOn = true;
     }
 
@@ -289,14 +258,7 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_FindBodyClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedBody;
-        }
-        else
-        {
-            m_InstructionText.text = k_FindABodyText;
-        }    
+        m_InstructionText.text = k_FindABodyText;  
         m_FadeOn = true;
         
     }
@@ -305,14 +267,7 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_FindObjectClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedObject;
-        }
-        else
-        {
-            m_InstructionText.text = k_FindObjectText;
-        }
+        m_InstructionText.text = k_FindObjectText;
         m_FadeOn = true;
     }
 
@@ -320,14 +275,7 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_FindFaceClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedFace;
-        }
-        else
-        {
-            m_InstructionText.text = k_FindAFaceText;
-        }
+        m_InstructionText.text = k_FindAFaceText;
         m_FadeOn = true;
     }
 
@@ -335,14 +283,7 @@ public class ARUXAnimationManager : MonoBehaviour
     {
         m_VideoPlayer.clip = m_FindAPlaneClip;
         m_VideoPlayer.Play();
-        if (m_LocalizeText)
-        {
-            m_InstructionText.text = m_LocalizationManager.localizedMoveDevice;
-        }
-        else
-        {
-            m_InstructionText.text = k_MoveDeviceText;
-        }
+        m_InstructionText.text = k_MoveDeviceText;
         m_FadeOn = true;
     }
 
