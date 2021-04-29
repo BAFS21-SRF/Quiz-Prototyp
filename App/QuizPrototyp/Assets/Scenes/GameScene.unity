@@ -328,6 +328,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1617082834}
+  minDistanceToOtherObjects: 1
+  countOfSpawnPoints: 7
+  TrashCan: {fileID: 2353768374029241822, guid: 66338574d09674c6eb2625be38233551,
+    type: 3}
 --- !u!4 &98126864
 Transform:
   m_ObjectHideFlags: 0
@@ -850,7 +854,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5977163237366113879, guid: 29251f2f7c5044cce8e7eb862b4d93ef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 29251f2f7c5044cce8e7eb862b4d93ef, type: 3}
 --- !u!1 &1114040580
 GameObject:
@@ -1284,17 +1289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffce2a5b0406cb349aa7e1dfa2bb6e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
   fallBackObjectToSpawn: {fileID: 1347174112826311494, guid: 58669f9fd4bd663489cfa5bf25d6a1ae,
     type: 3}
-  spwanedObjects: []
-  Answers: []
   TrashCan: {fileID: 2353768374029241822, guid: 66338574d09674c6eb2625be38233551,
     type: 3}
-  frage:
-    frageText: 
-    auswahlmoeglichkeiten: []
-    id: 0
   m_ReasonDisplayText: {fileID: 302988620}
   m_ReasonParent: {fileID: 360976228}
 --- !u!4 &1617082835
