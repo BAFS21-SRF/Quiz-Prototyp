@@ -67,7 +67,7 @@ public class PlaneController : MonoBehaviour
         Debug.Log($"minX = {minX}, maxX = {maxX}, minY = {minY}, maxY = {maxY}");
 
         var loopCount = 0;
-        while ((spawnPoints.Count < countOfSpawnPoints || loopCount < 150) && mainPlane != null)
+        while (spawnPoints.Count < countOfSpawnPoints && loopCount < 150 && mainPlane != null)
         {
             Vector3 spawnpoint = mainPlane.center;
             var x = UnityEngine.Random.Range(maxX, minX);

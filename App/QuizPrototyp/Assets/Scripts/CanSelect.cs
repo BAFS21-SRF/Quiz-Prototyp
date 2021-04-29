@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanSelect : MonoBehaviour
@@ -49,8 +47,10 @@ public class CanSelect : MonoBehaviour
     }
 
      private void calcCameraToObjectDistance(){
-         if(isVisable){
-            float dist = Vector3.Distance(this.transform.position, arCamera.transform.position);
+         if(isVisable && !IsSelected){
+            var objectPosition = new Vector2 { x = transform.position.x, y = transform.position.z };
+            var cameraPosition = new Vector2 { x = arCamera.transform.position.x, y = arCamera.transform.position.z };
+            float dist = Vector2.Distance(objectPosition, cameraPosition);
             if(dist < minDistanz){
                  timer += Time.fixedDeltaTime;
 
