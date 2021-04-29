@@ -6,6 +6,7 @@ public class CanSelect : MonoBehaviour
 {
 
     private GameObject arCamera;
+    public GameObject selecetedAnimation;
     private bool isVisable;
     public bool IsSelected = false;   
 
@@ -25,8 +26,12 @@ public class CanSelect : MonoBehaviour
 
     void Update()
     {
+        if(selecetedAnimation != null){
+            selecetedAnimation.SetActive(IsSelected);
+        }
         if(IsSelected){
             meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);         
+            
         }else{
             meshRenderer.material.color = Color.Lerp(Color.green, Color.white, 2f);    
         }
