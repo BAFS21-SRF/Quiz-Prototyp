@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanSelect : MonoBehaviour
 {
 
     private GameObject arCamera;
+    public GameObject selecetedAnimation;
     private bool isVisable;
     public bool IsSelected = false;   
 
@@ -13,8 +12,6 @@ public class CanSelect : MonoBehaviour
     private float timer = 0.0f;
 
     public float minDistanz = 1.0f;
-     public float addDistanz = 0.1f;
-    private float timerVisable = 0.0f;
     MeshRenderer meshRenderer;
 
     void Start(){
@@ -27,18 +24,14 @@ public class CanSelect : MonoBehaviour
 
     void Update()
     {
+        if(selecetedAnimation != null){
+            selecetedAnimation.SetActive(IsSelected);
+        }
         if(IsSelected){
             meshRenderer.material.color = Color.Lerp(Color.white, Color.green, 2f);         
+            
         }else{
-            meshRenderer.material.color = Color.white;
-        }
-
-        if(isVisable){
-             timerVisable += Time.deltaTime;
-             if(timerVisable > 2){
-                minDistanz += 0.1f;
-                timerVisable -= 2;
-             }
+            meshRenderer.material.color = Color.Lerp(Color.green, Color.white, 2f);    
         }
     }
 
@@ -50,20 +43,20 @@ public class CanSelect : MonoBehaviour
     public void Reset(){
         IsSelected = false;
         minDistanz = 1.0f;
-        timerVisable = 0.0f;
+        timer = 0.0f;
     }
 
      private void calcCameraToObjectDistance(){
-         if(isVisable){
-            float dist = Vector3.Distance(this.transform.position, arCamera.transform.position);
+         if(isVisable && !IsSelected){
+            var objectPosition = new Vector2 { x = transform.position.x, y = transform.position.z };
+            var cameraPosition = new Vector2 { x = arCamera.transform.position.x, y = arCamera.transform.position.z };
+            float dist = Vector2.Distance(objectPosition, cameraPosition);
             if(dist < minDistanz){
-                //Debug.Log($"{this.name} hat eine Distanz von {dist} zur Kamera");
                  timer += Time.fixedDeltaTime;
 
                 if (timer > waitTime)
                 {
                    IsSelected = true;
-                   //Debug.Log($"Selected: IsSelected");
                 }
             }else{
                 timer = 0.0f;
@@ -78,7 +71,7 @@ public class CanSelect : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        timerVisable = 0.0f;
+        timer = 0.0f;
         isVisable = false;
     }
 }

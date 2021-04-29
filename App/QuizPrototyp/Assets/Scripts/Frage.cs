@@ -19,3 +19,11 @@ public class Auswahlmoeglichkeiten
     public string assetId;
 
 }
+
+[Serializable]
+public class GameStart
+{
+    public string guid;
+    public int aktuelleFrageId;
+    public int id;
+}
