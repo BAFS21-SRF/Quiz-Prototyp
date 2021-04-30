@@ -135,6 +135,7 @@ public class GameController : MonoBehaviour
         Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
         GameObject newGameObject = Resources.Load(AssetId) as GameObject;   
         if (newGameObject == null){
+            apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
             newGameObject = fallBackObjectToSpawn;
         }
         LookAtCamera text = newGameObject.GetComponentInChildren<LookAtCamera>();        
@@ -143,8 +144,14 @@ public class GameController : MonoBehaviour
             text = newGameObject.GetComponent<LookAtCamera>();
             Debug.Log("text is null");
         }
-        text.textMesh.text = name;                   
+        text.textMesh.text = name;
         
         return newGameObject;
+    }
+
+    private void OnAssetLoadedFromServer(GameObject asset)
+    {
+        fallBackObjectToSpawn = asset;
+        Debug.Log("Fallback Object has been changed");
     }
 }
