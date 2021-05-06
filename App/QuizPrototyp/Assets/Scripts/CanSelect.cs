@@ -6,18 +6,21 @@ public class CanSelect : MonoBehaviour
     private GameObject arCamera;
     public GameObject selecetedAnimation;
     private bool isVisable;
+
+      private AudioSource source;
     public bool IsSelected = false;   
 
     private float waitTime = 2.0f;
     private float timer = 0.0f;
 
-    public float minDistanz = 1.0f;
+    public float minDistanz = 0.8f;
     MeshRenderer meshRenderer;
 
     void Start(){
          arCamera = GameObject.FindGameObjectWithTag("MainCamera");
          meshRenderer = GetComponent<MeshRenderer>();
          Debug.Log("isCameraNull: " + (arCamera == null).ToString());
+         source = GetComponent<AudioSource>();
     }
 
   
@@ -42,7 +45,6 @@ public class CanSelect : MonoBehaviour
 
     public void Reset(){
         IsSelected = false;
-        minDistanz = 1.0f;
         timer = 0.0f;
     }
 
@@ -57,6 +59,7 @@ public class CanSelect : MonoBehaviour
                 if (timer > waitTime)
                 {
                    IsSelected = true;
+                   source.Play();
                 }
             }else{
                 timer = 0.0f;
