@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
-
+using System;
 
 public class GameController : MonoBehaviour
 { 
@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     private Frage frage = null;
     private int antwortCount = 1;
 
+    private int frageWert = 100;
+
+    private int score = 0;
     [SerializeField]
     TMP_Text m_ReasonDisplayText;
     public TMP_Text reasonDisplayText
@@ -24,6 +27,22 @@ public class GameController : MonoBehaviour
         get => m_ReasonDisplayText;
         set => m_ReasonDisplayText = value;
     }
+     [SerializeField]
+    TMP_Text m_scoreText;
+    public TMP_Text scoreText
+    {
+        get => m_scoreText;
+        set => m_scoreText = value;
+    }
+
+   [SerializeField]
+    GameObject m_ScoreBox;
+    public GameObject scoreBox
+    {
+        get => m_ScoreBox;
+        set => m_ScoreBox = value;
+    }
+
     [SerializeField]
     GameObject m_ReasonParent;
     public GameObject reasonParent
@@ -49,6 +68,7 @@ public class GameController : MonoBehaviour
     async Task FixedUpdate(){
         if(spawnPoints.Count >= 4 && frage != null){           
              m_ReasonParent.SetActive(true);
+             scoreBox.SetActive(true);
             await PlayGame();
         }        
     }
@@ -63,7 +83,7 @@ public class GameController : MonoBehaviour
         frage = await apiController.GetRequest<Frage>($"/frage?guid={GameManager.guidId}");
         m_ReasonDisplayText.text = frage.frageText;
         antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
-        int i = UnityEngine.Random.Range(0, spawnPoints.Count); // Random start index for spawning
+        int i = UnityEngine.Random.Range(0, spawnPoints.Count);
         if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
             Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
         }
@@ -84,7 +104,6 @@ public class GameController : MonoBehaviour
     }
    
     private async Task PlayGame(){
-        Debug.Log($"-----------------SpawndeObjectCount: {spwanedObjects.Count}--------------------");
         foreach (GameObject gameObject in spwanedObjects)
         {
             CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
@@ -92,7 +111,6 @@ public class GameController : MonoBehaviour
             {
                 canSelect = gameObject.GetComponent<CanSelect>();
             }
-            Debug.Log(canSelect.IsSelected);
             if (canSelect.IsSelected && !Answers.Contains(canSelect))
             {
                 Answers.Add(canSelect);
@@ -126,10 +144,40 @@ public class GameController : MonoBehaviour
     private async Task CheckForNextFrage(){
         if(Answers.Count() == antwortCount){
             Debug.Log("SpawnFrage vom NextFrage");
+            score += checkAwnser();
+            Debug.Log($"Score: {score}");
+            scoreText.text = $"Score: {score}";
             await SpwanFrage();
         }
     }
-   
+
+    private int checkAwnser()
+    {
+        int value = 100;
+        try{      
+            List<Auswahlmoeglichkeiten> resultList = frage.auswahlmoeglichkeiten.OrderBy(x => x.order).ToList();       
+            int k = 0;
+            for (int i = 0; i < resultList.Count; i++)
+            {
+                if(resultList[i].order == 0){
+                     continue;
+                }
+                
+                LookAtCamera textLookAtCamera = Answers[k].GetComponentInChildren<LookAtCamera>();
+                string text = textLookAtCamera.textMesh.text;
+                if(resultList[i].auswahlText != text){
+                    value -= 100/antwortCount;
+                }
+                k++;                
+                
+            }
+        }catch(Exception ex){
+            Debug.Log(ex);
+        }
+
+        return value;
+    }
+
     private GameObject loadPrefabWithAssetId(string AssetId, string name)
     {
         Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
