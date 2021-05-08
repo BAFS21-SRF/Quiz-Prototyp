@@ -54,7 +54,8 @@ public class GameController : MonoBehaviour
 
 
     void Start(){
-         apiController = new ApiController();
+        apiController = (new GameObject("ApiController")).AddComponent<ApiController>();
+        apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
     }
 
     public async Task Init(List<Vector2> spawnPoints, float mainPlaneY)
@@ -183,8 +184,8 @@ public class GameController : MonoBehaviour
         Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
         GameObject newGameObject = Resources.Load(AssetId) as GameObject;   
         if (newGameObject == null){
-            apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
             newGameObject = fallBackObjectToSpawn;
+             Debug.Log("newGameObject set");
         }
         LookAtCamera text = newGameObject.GetComponentInChildren<LookAtCamera>();        
         if (text == null)

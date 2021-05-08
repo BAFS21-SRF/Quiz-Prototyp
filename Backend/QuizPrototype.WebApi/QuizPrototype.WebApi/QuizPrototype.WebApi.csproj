@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -17,6 +17,23 @@
     <ProjectReference Include="..\QuizPrototype.Domain\QuizPrototype.Domain.csproj" />
     <ProjectReference Include="..\QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj" />
     <ProjectReference Include="..\QuizPrototype.Service\QuizPrototype.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\fallback-Android" />
+    <Resource Include="wwwroot\assets\fallback-Android" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\assets\.gitkeep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\fallback-Android">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

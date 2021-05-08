@@ -351,7 +351,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98126862}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ace15d9c1d58d941acaeeb55e16bdb5, type: 3}
   m_Name: 
@@ -1180,6 +1180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1565257387}
   - component: {fileID: 1565257386}
+  - component: {fileID: 1565257388}
   m_Layer: 0
   m_Name: ApiController
   m_TagString: Untagged
@@ -1213,6 +1214,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1565257388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565257385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ace15d9c1d58d941acaeeb55e16bdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1577749883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,8 +1376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffce2a5b0406cb349aa7e1dfa2bb6e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallBackObjectToSpawn: {fileID: 1347174112826311494, guid: 58669f9fd4bd663489cfa5bf25d6a1ae,
-    type: 3}
+  fallBackObjectToSpawn: {fileID: 0}
   m_ReasonDisplayText: {fileID: 302988620}
   m_scoreText: {fileID: 1793089060}
   m_ScoreBox: {fileID: 1562069058}
