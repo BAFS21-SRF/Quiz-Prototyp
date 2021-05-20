@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using System;
+using UnityEngine.Events;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 { 
@@ -16,6 +18,9 @@ public class GameController : MonoBehaviour
     private List<CanSelect> Answers = new List<CanSelect>();
     private Frage frage = null;
     private int antwortCount = 1;
+    public GameObject qrCodeReader;
+
+    private string currentQrCodeText = string.Empty;
 
     private int frageWert = 100;
 
@@ -56,32 +61,40 @@ public class GameController : MonoBehaviour
     void Start(){
         apiController = (new GameObject("ApiController")).AddComponent<ApiController>();
         apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
+        StartCoroutine(waitForQrCode(GotQrCode));
     }
 
-    public async Task Init(List<Vector2> spawnPoints, float mainPlaneY)
+    public void Init(List<Vector2> spawnPoints, float mainPlaneY)
     {
         TrashCan = PlaceTrashOnPlane.spawnedObject;
         this.mainPlaneY = mainPlaneY;
         this.spawnPoints = spawnPoints;
-        await SpwanFrage();
+        SpwanFrage(String.Empty);
     }
 
-    async Task FixedUpdate(){
+    void FixedUpdate(){
         if(spawnPoints.Count >= 4 && frage != null){           
              m_ReasonParent.SetActive(true);
              scoreBox.SetActive(true);
-            await PlayGame();
+            PlayGame();
         }        
     }
 
-      private async Task SpwanFrage(){
+      private void SpwanFrage(string qrCode){
+        currentQrCodeText = qrCode;
+        Debug.Log($"Spawn Frage mit QRCode: {qrCode}");
+        
         Answers = new List<CanSelect>();
         foreach (var toDestroy in spwanedObjects)
         {
             Destroy(toDestroy);
         }
         spwanedObjects = new List<GameObject>();
-        frage = await apiController.GetRequest<Frage>($"/frage?guid={GameManager.guidId}");
+        apiController.StartApiCall<Frage>($"/frage?guid={GameManager.guidId}", nextFrage);       
+    }
+
+
+    private void nextFrage(Frage frage){
         m_ReasonDisplayText.text = frage.frageText;
         antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
         int i = UnityEngine.Random.Range(0, spawnPoints.Count);
@@ -104,7 +117,7 @@ public class GameController : MonoBehaviour
         return count;
     }
    
-    private async Task PlayGame(){
+    private void PlayGame(){
         foreach (GameObject gameObject in spwanedObjects)
         {
             CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
@@ -119,7 +132,7 @@ public class GameController : MonoBehaviour
             }
         }
         CheckReset();
-        await CheckForNextFrage();        
+        CheckForNextFrage();        
     }
 
     private void CheckReset(){
@@ -142,14 +155,30 @@ public class GameController : MonoBehaviour
         }          
     }
 
-    private async Task CheckForNextFrage(){
+    private void CheckForNextFrage(){
         if(Answers.Count() == antwortCount){
             Debug.Log("SpawnFrage vom NextFrage");
             score += checkAwnser();
             Debug.Log($"Score: {score}");
-            scoreText.text = $"Score: {score}";
-            await SpwanFrage();
+            scoreText.text = $"Score: {score}";            
         }
+    }
+
+    private void GotQrCode(string text){
+        SpwanFrage(text);         
+    }
+
+    IEnumerator waitForQrCode(UnityAction<string> callback){
+          while(true){
+            string qrCode = currentQrCodeText;
+            QrCodeReader teset = qrCodeReader.GetComponent<QrCodeReader>();
+                do{
+                    qrCode = teset.qrCodeText;
+                yield return new WaitForSeconds(1);
+                }while(qrCode == currentQrCodeText);
+
+                callback(qrCode);
+          }
     }
 
     private int checkAwnser()

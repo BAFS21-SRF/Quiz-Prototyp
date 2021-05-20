@@ -16,20 +16,25 @@ public class GameManager : MonoBehaviour
        
     }
 
-    async Task Update(){
+    void Update(){
         if(getNextScene){
             getNextScene=false;
-            apiController = new ApiController();
+            apiController = (new GameObject("ApiController")).AddComponent<ApiController>();
             Debug.Log("NextScene called");
-            GameStart gameStart = await apiController.GetRequest<GameStart>("/gamestart", true);
-            if(gameStart == null){
+            apiController.StartApiCall<GameStart>("/gamestart", startGame);
+                    
+        }
+    }
+
+
+    private void startGame(GameStart gameStart){
+         if(gameStart == null){
                 Debug.Log("gameStart null");
             }
             guidId = gameStart.guid;
             Debug.Log(guidId);
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            SceneManager.LoadScene(nextSceneIndex);            
-        }
+            SceneManager.LoadScene(nextSceneIndex);   
     }
 
 

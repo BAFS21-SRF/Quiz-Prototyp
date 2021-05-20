@@ -8,22 +8,28 @@ using UnityEngine.Networking;
 public class ApiController : MonoBehaviour
 {
     private string baseUrl = $"http://192.168.1.8:8888";
-      public async Task<T> GetRequest<T>(string url, bool loggen = false){
-        url = baseUrl + "/api" + url;
-        if (loggen){
-            Debug.Log(url);
-        }
-        var webClient = new System.Net.WebClient();
-        string json = await webClient.DownloadStringTaskAsync(new Uri(url));
-        if(loggen){
-            Debug.Log(json);
-        }
-        return JsonUtility.FromJson<T>(json); 
-    }
+     
 
     public void GetAssetFromServer(string assetId, UnityAction<GameObject> callback)
     {
+         Debug.Log("GetAssetFromServer called");
         StartCoroutine(GetAssetFromServerRoutine(assetId, callback));
+    }
+
+    public void StartApiCall<T>(string url, UnityAction<T> callback)
+    {
+        StartCoroutine(ApiCall<T>(url, callback));
+    }
+
+    private IEnumerator ApiCall<T>(string url, UnityAction<T> callback)
+    {        
+        url = baseUrl + "/api" + url;
+        using (UnityWebRequest www = UnityWebRequest.Get(new Uri(url))){
+            yield return www.SendWebRequest();
+            
+            
+            callback(JsonUtility.FromJson<T>(www.downloadHandler.text));
+        }
     }
 
     private IEnumerator GetAssetFromServerRoutine(string assetId, UnityAction<GameObject> callback)
