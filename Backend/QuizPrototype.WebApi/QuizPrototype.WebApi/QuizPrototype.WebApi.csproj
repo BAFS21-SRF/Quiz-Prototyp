@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>94f2a5d4-8bfa-43ed-b3c9-63e0028ededb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\assets\fallback-IOS" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\fallback-IOS" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
@@ -17,6 +25,29 @@
     <ProjectReference Include="..\QuizPrototype.Domain\QuizPrototype.Domain.csproj" />
     <ProjectReference Include="..\QuizPrototype.Infrastructure\QuizPrototype.Infrastructure.csproj" />
     <ProjectReference Include="..\QuizPrototype.Service\QuizPrototype.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\fallback-Android" />
+    <Resource Include="wwwroot\assets\fallback-Android" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\assets\.gitkeep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\fallback-Android">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\fallback-IOS">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 
