@@ -45,9 +45,9 @@ public class QrCodeReader : MonoBehaviour
 
 
             Color32[] framebuffer = m_pixelCapturer.m_lastCapturedColors;
-            Debug.Log($"framebuffer Length: {framebuffer.Length}");
+            /*Debug.Log($"framebuffer Length: {framebuffer.Length}");
             Debug.Log($"currentResolution width: {currentResolution.width}");
-             Debug.Log($"currentResolution height: {currentResolution.height}");
+             Debug.Log($"currentResolution height: {currentResolution.height}");*/
             
             var data = barCodeReader.Decode(framebuffer, currentResolution.width, currentResolution.height/2);
             
