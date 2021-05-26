@@ -3,7 +3,9 @@ using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
-
+using System;
+using UnityEngine.Events;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 { 
@@ -16,7 +18,13 @@ public class GameController : MonoBehaviour
     private List<CanSelect> Answers = new List<CanSelect>();
     private Frage frage = null;
     private int antwortCount = 1;
+    public GameObject qrCodeReader;
 
+    private string currentQrCodeText = string.Empty;
+
+    private int frageWert = 100;
+
+    private int score = 0;
     [SerializeField]
     TMP_Text m_ReasonDisplayText;
     public TMP_Text reasonDisplayText
@@ -24,6 +32,22 @@ public class GameController : MonoBehaviour
         get => m_ReasonDisplayText;
         set => m_ReasonDisplayText = value;
     }
+     [SerializeField]
+    TMP_Text m_scoreText;
+    public TMP_Text scoreText
+    {
+        get => m_scoreText;
+        set => m_scoreText = value;
+    }
+
+   [SerializeField]
+    GameObject m_ScoreBox;
+    public GameObject scoreBox
+    {
+        get => m_ScoreBox;
+        set => m_ScoreBox = value;
+    }
+
     [SerializeField]
     GameObject m_ReasonParent;
     public GameObject reasonParent
@@ -35,35 +59,45 @@ public class GameController : MonoBehaviour
 
 
     void Start(){
-         apiController = new ApiController();
+        apiController = (new GameObject("ApiController")).AddComponent<ApiController>();
+        apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
+        StartCoroutine(waitForQrCode(GotQrCode));
     }
 
-    public async Task Init(List<Vector2> spawnPoints, float mainPlaneY)
+    public void Init(List<Vector2> spawnPoints, float mainPlaneY)
     {
         TrashCan = PlaceTrashOnPlane.spawnedObject;
         this.mainPlaneY = mainPlaneY;
         this.spawnPoints = spawnPoints;
-        await SpwanFrage();
+        SpwanFrage(String.Empty);
     }
 
-    async Task FixedUpdate(){
+    void FixedUpdate(){
         if(spawnPoints.Count >= 4 && frage != null){           
              m_ReasonParent.SetActive(true);
-            await PlayGame();
+             scoreBox.SetActive(true);
+            PlayGame();
         }        
     }
 
-      private async Task SpwanFrage(){
+      private void SpwanFrage(string qrCode){
+        currentQrCodeText = qrCode;
+        Debug.Log($"Spawn Frage mit QRCode: {qrCode}");
+        
         Answers = new List<CanSelect>();
         foreach (var toDestroy in spwanedObjects)
         {
             Destroy(toDestroy);
         }
         spwanedObjects = new List<GameObject>();
-        frage = await apiController.GetRequest<Frage>($"/frage?guid={GameManager.guidId}");
+        apiController.StartApiCall<Frage>($"/frage?guid={GameManager.guidId}", nextFrage);       
+    }
+
+
+    private void nextFrage(Frage frage){
         m_ReasonDisplayText.text = frage.frageText;
         antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
-        int i = UnityEngine.Random.Range(0, spawnPoints.Count); // Random start index for spawning
+        int i = UnityEngine.Random.Range(0, spawnPoints.Count);
         if(spawnPoints.Count < frage.auswahlmoeglichkeiten.Count){
             Debug.Log($"Zu wenigs Spawnpunkte {spawnPoints.Count} benötigt {frage.auswahlmoeglichkeiten.Count}");
         }
@@ -83,8 +117,7 @@ public class GameController : MonoBehaviour
         return count;
     }
    
-    private async Task PlayGame(){
-        Debug.Log($"-----------------SpawndeObjectCount: {spwanedObjects.Count}--------------------");
+    private void PlayGame(){
         foreach (GameObject gameObject in spwanedObjects)
         {
             CanSelect canSelect = gameObject.GetComponentInChildren<CanSelect>();
@@ -92,7 +125,6 @@ public class GameController : MonoBehaviour
             {
                 canSelect = gameObject.GetComponent<CanSelect>();
             }
-            Debug.Log(canSelect.IsSelected);
             if (canSelect.IsSelected && !Answers.Contains(canSelect))
             {
                 Answers.Add(canSelect);
@@ -100,7 +132,7 @@ public class GameController : MonoBehaviour
             }
         }
         CheckReset();
-        await CheckForNextFrage();        
+        CheckForNextFrage();        
     }
 
     private void CheckReset(){
@@ -123,19 +155,66 @@ public class GameController : MonoBehaviour
         }          
     }
 
-    private async Task CheckForNextFrage(){
+    private void CheckForNextFrage(){
         if(Answers.Count() == antwortCount){
             Debug.Log("SpawnFrage vom NextFrage");
-            await SpwanFrage();
+            score += checkAwnser();
+            Debug.Log($"Score: {score}");
+            scoreText.text = $"Score: {score}";            
         }
     }
-   
+
+    private void GotQrCode(string text){
+        SpwanFrage(text);         
+    }
+
+    IEnumerator waitForQrCode(UnityAction<string> callback){
+          while(true){
+            string qrCode = currentQrCodeText;
+            QrCodeReader teset = qrCodeReader.GetComponent<QrCodeReader>();
+                do{
+                    qrCode = teset.qrCodeText;
+                yield return new WaitForSeconds(1);
+                }while(qrCode == currentQrCodeText);
+
+                callback(qrCode);
+          }
+    }
+
+    private int checkAwnser()
+    {
+        int value = 100;
+        try{      
+            List<Auswahlmoeglichkeiten> resultList = frage.auswahlmoeglichkeiten.OrderBy(x => x.order).ToList();       
+            int k = 0;
+            for (int i = 0; i < resultList.Count; i++)
+            {
+                if(resultList[i].order == 0){
+                     continue;
+                }
+                
+                LookAtCamera textLookAtCamera = Answers[k].GetComponentInChildren<LookAtCamera>();
+                string text = textLookAtCamera.textMesh.text;
+                if(resultList[i].auswahlText != text){
+                    value -= 100/antwortCount;
+                }
+                k++;                
+                
+            }
+        }catch(Exception ex){
+            Debug.Log(ex);
+        }
+
+        return value;
+    }
+
     private GameObject loadPrefabWithAssetId(string AssetId, string name)
     {
         Debug.Log($"loadPrefabWithAssetId, AssetId:{AssetId}, name:{name}");
         GameObject newGameObject = Resources.Load(AssetId) as GameObject;   
         if (newGameObject == null){
             newGameObject = fallBackObjectToSpawn;
+             Debug.Log("newGameObject set");
         }
         LookAtCamera text = newGameObject.GetComponentInChildren<LookAtCamera>();        
         if (text == null)
@@ -143,8 +222,14 @@ public class GameController : MonoBehaviour
             text = newGameObject.GetComponent<LookAtCamera>();
             Debug.Log("text is null");
         }
-        text.textMesh.text = name;                   
+        text.textMesh.text = name;
         
         return newGameObject;
+    }
+
+    private void OnAssetLoadedFromServer(GameObject asset)
+    {
+        fallBackObjectToSpawn = asset;
+        Debug.Log("Fallback Object has been changed");
     }
 }

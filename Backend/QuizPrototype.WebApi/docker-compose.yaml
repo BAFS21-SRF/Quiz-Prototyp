@@ -37,3 +37,10 @@ services:
     depends_on:
         db-srv:
           condition: service_healthy
+          
+  dashboard:
+   build:
+     context: ../../Frontend/quizprototyp/
+     dockerfile: ./Dockerfile     
+   ports:
+     - "8889:8080"

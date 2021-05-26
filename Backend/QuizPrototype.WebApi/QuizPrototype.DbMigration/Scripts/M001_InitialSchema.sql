@@ -31,6 +31,7 @@ CREATE TABLE [dbo].[Game](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Guid] [varchar](255) NOT NULL,
 	[AktuelleFrageId] [bigint] NOT NULL,
+	[Score] [bigint] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -79,7 +80,7 @@ SET IDENTITY_INSERT [dbo].[Auswahl] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Frage] ON 
 GO
-INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (1, N'Ordne die Tiere nach der Grösse')
+INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (1, N'Ordne die Tiere nach der Groesse')
 GO
 INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (2, N'Wie viel Liter Milch produziert eine Milchkuh pro Tag?')
 GO

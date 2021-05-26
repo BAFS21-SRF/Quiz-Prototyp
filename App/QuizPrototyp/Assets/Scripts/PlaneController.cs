@@ -17,12 +17,12 @@ public class PlaneController : MonoBehaviour
     public int minDistanceToOtherObjects = 1;
     public int countOfSpawnPoints = 4;
 
-    async Task FixedUpdate()
+    void FixedUpdate()
     {
-         await Setup();
+         Setup();
     }
 
-    private async Task Setup(){        
+    private void Setup(){        
         if (canStart && !calcIsDone) {           
             GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
                 if(planeManager == null){
@@ -33,7 +33,7 @@ public class PlaneController : MonoBehaviour
             CalcMainPlane();
             CalcSpawnPoints();
             Debug.Log($"Spawnpoints Count: {spawnPoints.Count}");
-            await gameController.Init(spawnPoints, mainPlane.center.y);
+            gameController.Init(spawnPoints, mainPlane.center.y);
         }
     }
 
