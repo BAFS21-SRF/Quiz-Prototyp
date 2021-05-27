@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour
             GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);
             Vector3 spawnPoint = new Vector3(spawnPoints[i % spawnPoints.Count].x, mainPlaneY, spawnPoints[i % spawnPoints.Count].y);
             GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity);
-            spawnedObject.transform.LookAt(arCamera.transform);
+            spawnedObject.transform.LookAt(new Vector3(arCamera.transform.position.x, mainPlaneY, arCamera.transform.position.z));
             spwanedObjects.Add(spawnedObject);
             i++;
         }
