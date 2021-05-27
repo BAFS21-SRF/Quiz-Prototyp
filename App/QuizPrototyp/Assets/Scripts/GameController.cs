@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     private List<CanSelect> Answers = new List<CanSelect>();
     private Frage frage = null;
     private int antwortCount = 1;
+    private QrCodeReader qrReader;
 
     private string currentQrCodeText = string.Empty;
 
@@ -62,6 +63,7 @@ public class GameController : MonoBehaviour
     {
         apiController = (new GameObject("ApiController")).AddComponent<ApiController>();
         apiController.GetAssetFromServer("fallback", OnAssetLoadedFromServer);
+        qrReader = qrCodeReader.GetComponent<QrCodeReader>();
         StartCoroutine(waitForQrCode(GotQrCode));
     }
 
@@ -179,30 +181,35 @@ public class GameController : MonoBehaviour
             score += checkAwnser();
             Debug.Log($"Score: {score}");
             scoreText.text = $"Score: {score}";
-            // ToDo despawn Objects and load new frage from qrcode
             DespawnFrage();
             m_ReasonDisplayText.text = "Please scan QR Code";
+            qrReader.canScan = true;
         }
     }
 
     private void GotQrCode(string text)
     {
         SpwanFrage(text);
+        qrReader.canScan = false;
     }
 
     IEnumerator waitForQrCode(UnityAction<string> callback)
     {
+        string qrCode = string.Empty;
         while (true)
         {
-            string qrCode = currentQrCodeText;
-            QrCodeReader teset = qrCodeReader.GetComponent<QrCodeReader>();
-            do
+            if (qrReader.canScan)
             {
-                qrCode = teset.qrCodeText;
-                yield return new WaitForSeconds(1);
-            } while (qrCode == currentQrCodeText);
+                qrCode = currentQrCodeText;
+                do
+                {
+                    qrCode = qrReader.qrCodeText;
+                    yield return new WaitForSeconds(1);
+                } while (qrCode == currentQrCodeText);
 
-            callback(qrCode);
+                callback(qrCode);
+            }
+
         }
     }
 
