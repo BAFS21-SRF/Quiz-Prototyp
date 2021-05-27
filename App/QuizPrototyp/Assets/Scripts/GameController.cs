@@ -100,6 +100,7 @@ public class GameController : MonoBehaviour
 
     private void nextFrage(Frage frage)
     {
+        this.frage = frage;
         m_ReasonDisplayText.text = frage.frageText;
         antwortCount = GetAntwortCount(frage.auswahlmoeglichkeiten);
         int i = UnityEngine.Random.Range(0, spawnPoints.Count);
@@ -173,6 +174,7 @@ public class GameController : MonoBehaviour
             score += checkAwnser();
             Debug.Log($"Score: {score}");
             scoreText.text = $"Score: {score}";
+            // ToDo despawn Objects and load new frage from qrcode
         }
     }
 
