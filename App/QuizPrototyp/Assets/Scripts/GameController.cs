@@ -198,6 +198,7 @@ public class GameController : MonoBehaviour
         string qrCode = string.Empty;
         while (true)
         {
+            yield return new WaitForSeconds(1);
             if (qrReader.canScan)
             {
                 qrCode = currentQrCodeText;

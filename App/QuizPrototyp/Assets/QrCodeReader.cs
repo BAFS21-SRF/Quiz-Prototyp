@@ -38,9 +38,9 @@ public class QrCodeReader : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForEndOfFrame();
             if (canScan)
             {
-                yield return new WaitForEndOfFrame();
                 if (m_pixelCapturer == null)
                 {
                     Debug.LogError($"m_pixelCapturer ist null");
