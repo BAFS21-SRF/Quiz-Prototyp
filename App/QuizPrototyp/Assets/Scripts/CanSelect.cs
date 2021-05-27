@@ -24,7 +24,7 @@ public class CanSelect : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         Debug.Log("isCameraNull: " + (arCamera == null).ToString());
         source = GetComponent<AudioSource>();
-         animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -47,7 +47,9 @@ public class CanSelect : MonoBehaviour
     void FixedUpdate()
     {
         calcCameraToObjectDistance();
-        animator.SetBool("IsSelected", IsSelected);
+        if(animator != null){
+            animator.SetBool("IsSelected", IsSelected);
+        }
     }
 
     public void Reset()
