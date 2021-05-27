@@ -88,13 +88,18 @@ public class GameController : MonoBehaviour
         currentQrCodeText = qrCode;
         Debug.Log($"Spawn Frage mit QRCode: {qrCode}");
 
+        DespawnFrage();
+        apiController.StartApiCall<Frage>($"/frage?guid={GameManager.guidId}", nextFrage);
+    }
+
+    private void DespawnFrage()
+    {
         Answers = new List<CanSelect>();
         foreach (var toDestroy in spwanedObjects)
         {
             Destroy(toDestroy);
         }
         spwanedObjects = new List<GameObject>();
-        apiController.StartApiCall<Frage>($"/frage?guid={GameManager.guidId}", nextFrage);
     }
 
 
@@ -175,6 +180,8 @@ public class GameController : MonoBehaviour
             Debug.Log($"Score: {score}");
             scoreText.text = $"Score: {score}";
             // ToDo despawn Objects and load new frage from qrcode
+            DespawnFrage();
+            m_ReasonDisplayText.text = "Please scan QR Code";
         }
     }
 
