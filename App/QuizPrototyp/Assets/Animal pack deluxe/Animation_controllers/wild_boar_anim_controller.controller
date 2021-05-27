@@ -8,7 +8,13 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: wild_boar_anim_controller
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: IsSelected
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -29,7 +35,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102957675749064224}
   m_Solo: 0
@@ -51,7 +60,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102072194401184178}
   m_Solo: 0
@@ -365,10 +377,6 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101534588053076118}
-  - {fileID: 1101667893194594584}
-  - {fileID: 1101664375498539076}
-  - {fileID: 1101893292828943284}
   - {fileID: 1101085793627471260}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
@@ -397,18 +405,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1102957675749064224}
     m_Position: {x: 60, y: 216, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102232932610919352}
-    m_Position: {x: 264, y: 324, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102674706471274536}
-    m_Position: {x: 492, y: 312, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102773831851906616}
-    m_Position: {x: 12, y: 324, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102242485627460650}
-    m_Position: {x: 216, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102072194401184178}
     m_Position: {x: 708, y: 312, z: 0}

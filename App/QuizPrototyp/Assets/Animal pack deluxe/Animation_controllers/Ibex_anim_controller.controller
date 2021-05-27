@@ -8,7 +8,13 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Ibex_anim_controller
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: IsSelected
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -29,7 +35,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102086559292392734}
   m_Solo: 0
@@ -117,7 +126,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102745152576691660}
   m_Solo: 0
@@ -231,11 +243,7 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101103193759854188}
   - {fileID: 1101399500536278128}
-  - {fileID: 1101521994886730848}
-  - {fileID: 1101120892466614486}
-  - {fileID: 1101815923011030298}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -398,20 +406,8 @@ AnimatorStateMachine:
     m_State: {fileID: 1102086559292392734}
     m_Position: {x: 164, y: 191, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102168671174143042}
-    m_Position: {x: 312, y: 408, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102375663914560786}
-    m_Position: {x: 573, y: 350, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 1102745152576691660}
     m_Position: {x: 547, y: 240, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102210209872313826}
-    m_Position: {x: 72, y: 372, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102468459944873142}
-    m_Position: {x: 348, y: 336, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
