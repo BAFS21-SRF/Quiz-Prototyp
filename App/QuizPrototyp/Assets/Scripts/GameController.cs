@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Threading.Tasks;
 using TMPro;
 using System;
 using UnityEngine.Events;
@@ -10,6 +9,8 @@ using System.Collections;
 public class GameController : MonoBehaviour
 { 
     public GameObject fallBackObjectToSpawn;
+    public GameObject qrCodeReader;
+    public Camera arCamera;
 
     private GameObject TrashCan;
     private List<Vector2> spawnPoints = new List<Vector2>();
@@ -18,7 +19,6 @@ public class GameController : MonoBehaviour
     private List<CanSelect> Answers = new List<CanSelect>();
     private Frage frage = null;
     private int antwortCount = 1;
-    public GameObject qrCodeReader;
 
     private string currentQrCodeText = string.Empty;
 
@@ -105,7 +105,9 @@ public class GameController : MonoBehaviour
         {
             GameObject prefabToSpawn = loadPrefabWithAssetId(auswahl.assetId, auswahl.auswahlText);
             Vector3 spawnPoint = new Vector3(spawnPoints[i % spawnPoints.Count].x, mainPlaneY, spawnPoints[i % spawnPoints.Count].y);
-            spwanedObjects.Add(Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity) as GameObject);
+            GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPoint, Quaternion.identity);
+            spawnedObject.transform.LookAt(arCamera.transform);
+            spwanedObjects.Add(spawnedObject);
             i++;
         }
     }
