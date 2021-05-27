@@ -8,7 +8,13 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: cattle_anim_controller
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: IsSelected
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -51,7 +57,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102095153435654012}
   m_Solo: 0
@@ -205,7 +214,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsSelected
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102908105270906668}
   m_Solo: 0
@@ -231,11 +243,7 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101539889296264342}
-  - {fileID: 1101320897080251750}
   - {fileID: 1101803553865513774}
-  - {fileID: 1101570679280323232}
-  - {fileID: 1101490614407882354}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -398,20 +406,8 @@ AnimatorStateMachine:
     m_State: {fileID: 1102095153435654012}
     m_Position: {x: 60, y: 156, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102151973736860732}
-    m_Position: {x: 392, y: 166, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102394533364628240}
-    m_Position: {x: 384, y: 96, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 1102908105270906668}
     m_Position: {x: 384, y: 240, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102530408400444824}
-    m_Position: {x: 384, y: 312, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102273573300973500}
-    m_Position: {x: 384, y: 24, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
