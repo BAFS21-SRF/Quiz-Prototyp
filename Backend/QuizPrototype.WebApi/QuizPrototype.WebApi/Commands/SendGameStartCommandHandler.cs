@@ -16,7 +16,7 @@ namespace QuizPrototype.WebApi.Commands
         }
 
         public Task<Game> Handle(SendGameStartCommand request, CancellationToken cancellationToken)
-        {
+        {            
             return gameService.StartGame();
         }
     }

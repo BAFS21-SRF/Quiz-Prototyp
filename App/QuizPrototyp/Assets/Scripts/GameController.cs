@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     private int antwortCount = 1;
     private QrCodeReader qrReader;
 
-    private string currentQrCodeText = string.Empty;
+    private string currentQrCodeText = "1";
 
     private int frageWert = 100;
 
@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
         TrashCan = PlaceTrashOnPlane.spawnedObject;
         this.mainPlaneY = mainPlaneY;
         this.spawnPoints = spawnPoints;
-        SpwanFrage(String.Empty);
+        SpwanFrage("1");
     }
 
     void FixedUpdate()
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
         Debug.Log($"Spawn Frage mit QRCode: {qrCode}");
 
         DespawnFrage();
-        apiController.StartApiCall<Frage>($"/frage?guid={GameManager.guidId}", nextFrage);
+        apiController.StartApiCall<Frage>($"/app?guid={GameManager.guidId}&frageId={qrCode}&score={score}", nextFrage);
     }
 
     private void DespawnFrage()
@@ -149,7 +149,15 @@ public class GameController : MonoBehaviour
             }
         }
         CheckReset();
+        CheckMaxSeleced();
         CheckForNextFrage();
+    }
+
+    private void CheckMaxSeleced(){
+        if(Answers.Count() > antwortCount){
+            Answers.First().Reset();
+            Answers.Remove(Answers.First());
+        }
     }
 
     private void CheckReset()
@@ -170,32 +178,31 @@ public class GameController : MonoBehaviour
             }
             trash.Reset();
             Answers = new List<CanSelect>();
+            m_ReasonDisplayText.text = frage.frageText;
+            qrReader.canScan = false;
         }
     }
 
     private void CheckForNextFrage()
     {
         if (Answers.Count() == antwortCount)
-        {
-            Debug.Log("SpawnFrage vom NextFrage");
-            score += checkAwnser();
-            Debug.Log($"Score: {score}");
-            scoreText.text = $"Score: {score}";
-            DespawnFrage();
+        {                     
             m_ReasonDisplayText.text = "Please scan QR Code";
             qrReader.canScan = true;
         }
     }
 
     private void GotQrCode(string text)
-    {
+    {      
+        score += checkAwnser();
+        scoreText.text = $"Score: {score}";
         SpwanFrage(text);
         qrReader.canScan = false;
     }
 
     IEnumerator waitForQrCode(UnityAction<string> callback)
     {
-        string qrCode = string.Empty;
+        string qrCode = "1";
         while (true)
         {
             yield return new WaitForSeconds(1);
@@ -204,7 +211,9 @@ public class GameController : MonoBehaviour
                 qrCode = currentQrCodeText;
                 do
                 {
-                    qrCode = qrReader.qrCodeText;
+                    if(!string.IsNullOrWhiteSpace(qrReader.qrCodeText)){
+                        qrCode = qrReader.qrCodeText;
+                    }
                     yield return new WaitForSeconds(1);
                 } while (qrCode == currentQrCodeText);
 

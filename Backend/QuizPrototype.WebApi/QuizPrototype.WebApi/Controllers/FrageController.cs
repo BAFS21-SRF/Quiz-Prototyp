@@ -23,6 +23,5 @@ namespace QuizPrototype.WebApi.Controllers
             var frage = await mediator.Send(new SendFrageCommand { Guid = guid });
             return Ok(frage);
         }
-
     }
 }

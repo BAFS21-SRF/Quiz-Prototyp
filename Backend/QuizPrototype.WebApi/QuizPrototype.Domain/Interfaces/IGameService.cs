@@ -7,5 +7,6 @@ namespace QuizPrototype.Domain.Interfaces
     {
         Task<Game> StartGame();
         Task<Frage> GetNextFrage(string guid);
+        Task UpdateGame(string guid, long frageId, long score);
     }
 }
