@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class FrameCapturer : MonoBehaviour {
+public class FrameCapturer : MonoBehaviour
+{
 
     // Script Inputs
     public bool m_shouldCaptureOnNextFrame = false;
@@ -12,7 +13,7 @@ public class FrameCapturer : MonoBehaviour {
     void Start()
     {
         Resolution currentResolution = Screen.currentResolution;
-        m_centerPixTex = new Texture2D(currentResolution.width, currentResolution.height/2, TextureFormat.RGBA32, false);
+        m_centerPixTex = new Texture2D(currentResolution.width, currentResolution.height / 2, TextureFormat.RGBA32, false);
     }
 
     void OnPostRender()
@@ -29,7 +30,7 @@ public class FrameCapturer : MonoBehaviour {
     Color32[] GetRenderedColors()
     {
         Resolution currentResolution = Screen.currentResolution;
-        m_centerPixTex.ReadPixels(new Rect(0, 0, currentResolution.width, currentResolution.height/2), 0, 0);
+        m_centerPixTex.ReadPixels(new Rect(0, 0, currentResolution.width, currentResolution.height / 2), 0, 0);
         m_centerPixTex.Apply();
 
         return m_centerPixTex.GetPixels32();

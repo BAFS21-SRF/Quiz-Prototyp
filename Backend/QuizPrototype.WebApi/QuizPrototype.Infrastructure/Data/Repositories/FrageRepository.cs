@@ -18,7 +18,7 @@ namespace QuizPrototype.Infrastructure.Data.Repositories
 
         public async Task<Frage> GetById(long id)
         {
-            var frage = await context.Frage.Where(f => f.Id == id).SingleOrDefaultAsync();
+            var frage = await context.Frage.Where(f => f.Id == id).FirstOrDefaultAsync();
             if (frage != null)
             {
                 frage.Auswahlmoeglichkeiten = await context.Auswahl.Where(x => x.FrageId == frage.Id).ToListAsync();

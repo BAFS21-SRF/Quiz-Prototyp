@@ -51,10 +51,10 @@ public class PlaceTrashOnPlane : MonoBehaviour
             {
                 if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
                 {
-                    Pose hitPose = s_Hits[0].pose;  
+                    Pose hitPose = s_Hits[0].pose;
                     spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
                     m_NumberOfPlacedObjects++;
-                    
+
                     if (onPlacedObject != null)
                     {
                         onPlacedObject();

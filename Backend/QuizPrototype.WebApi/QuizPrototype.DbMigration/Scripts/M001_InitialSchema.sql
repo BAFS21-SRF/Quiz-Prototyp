@@ -44,43 +44,43 @@ USE [QuizPrototype]
 GO
 SET IDENTITY_INSERT [dbo].[Auswahl] ON 
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (1, N'Ente', 4, 1, N'DuckWhite')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (1, N'Gans', 4, 1, N'Swan_goose')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (2, N'Schwein', 2, 1, N'Pig')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (2, N'Bär', 2, 1, N'Brown_bear')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (3, N'Kuh', 1, 1, N'CowBlW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (3, N'Hai', 1, 1, N'Great_white_shark')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (5, N'Schaf', 3, 1, N'SheepWhite')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (5, N'Schwein', 3, 1, N'Iron_age_pig')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (6, N'10 Liter', 0, 2, N'CowBlW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (6, N'10 Liter', 0, 2, N'Cattle_male')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (7, N'5 Liter', 0, 2, N'CowBlW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (7, N'5 Liter', 0, 2, N'Cattle_male')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (8, N'25 Liter', 1, 2, N'CowBlW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (8, N'25 Liter', 1, 2, N'Cattle_male')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (9, N'40 Liter', 0, 2, N'CowBlW')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (9, N'40 Liter', 0, 2, N'Cattle_male')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (10, N'Ente', 3, 3, N'DuckWhite')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (10, N'Wolf', 3, 3, N'Wolf')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (11, N'Schwein', 1, 3, N'Pig')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (11, N'Hirsch', 1, 3, N'Deer_male')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (12, N'Huhn', 4, 3, N'ChickenBrown')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (12, N'Wildschschwein', 4, 3, N'Wild_boar')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (13, N'Schaf', 2, 3, N'SheepWhite')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (13, N'Steinbock', 2, 3, N'Ibex')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (14, N'50 Eier', 0, 4, N'ChickenBrown')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (14, N'50 Eier', 0, 4, N'Chicken')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (15, N'180 Eier', 0, 4, N'ChickenBrown')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (15, N'180 Eier', 0, 4, N'Chicken')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (16, N'500 Eier', 0, 4, N'ChickenBrown')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (16, N'500 Eier', 0, 4, N'Chicken')
 GO
-INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (17, N'280 Eier', 1, 4, N'ChickenBrown')
+INSERT [dbo].[Auswahl] ([Id], [AuswahlText], [Order], [FrageId], [AssetId]) VALUES (17, N'280 Eier', 1, 4, N'Chicken')
 GO
 SET IDENTITY_INSERT [dbo].[Auswahl] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Frage] ON 
 GO
-INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (1, N'Ordne die Tiere nach der Groesse')
+INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (1, N'Ordne die Tiere nach der Grösse')
 GO
 INSERT [dbo].[Frage] ([Id], [FrageText]) VALUES (2, N'Wie viel Liter Milch produziert eine Milchkuh pro Tag?')
 GO
