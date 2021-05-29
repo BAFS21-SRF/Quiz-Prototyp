@@ -1,7 +1,16 @@
 <template>
-  <div class="container">
-      <h2>Anzahl Spieler</h2>
-      <div class="circle">{{ numberPlayers }}</div>
+  <div class="">
+    <v-card>
+      <v-card-title>Anzahl Spieler</v-card-title>
+    <v-card-text>
+      <v-avatar
+      color="#383732"
+      size="150"
+    >
+      <span class="white--text headline">{{ numberPlayers }}</span>
+    </v-avatar>
+    </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -29,20 +38,5 @@ export default class NumberPlayers extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.circle {
-    width:125px;
-    height:125px;
-    border-radius:80px;
-    font-size:25px;
-    color:black;
-    line-height:125px;
-    text-align:center;
-    border: 1px solid black;
-}
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
-}
+
 </style>
