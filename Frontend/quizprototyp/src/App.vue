@@ -1,15 +1,32 @@
 <template>
-  <div id="app">
-    <div class="scoreboard">
-      <ScoreBoard :guid="guid"/>
-    </div>
-    <div class="numberplayers">
-      <NumberPlayers/>
-    </div>
-    <div class="currentfrage">
-      <CurrentFrage :guid="guid"/>
-    </div>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="#2e2d29"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="SRF Logo"
+          class="shrink mr-2"
+          contain
+          src="/images/SRF_Logo.png"
+          transition="scale-transition"
+          width="50"
+        />
+      </div>
+    </v-app-bar>
+
+    <v-main>
+        <v-container>
+          <v-row>
+            <v-col><ScoreBoard/></v-col>
+            <v-col><NumberPlayers/></v-col>
+            <v-col><CurrentFrage :guid="guid"/></v-col>
+          </v-row>
+        </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -34,19 +51,3 @@ export default class App extends Vue {
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-.scoreboard { grid-area: 1 / 1 / 2 / 2; }
-.numberplayers { grid-area: 1 / 2 / 2 / 3; }
-.currentfrage { grid-area: 1 / 3 / 2 / 4; }
-</style>

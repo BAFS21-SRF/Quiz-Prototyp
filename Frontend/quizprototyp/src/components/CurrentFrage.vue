@@ -1,14 +1,18 @@
 <template>
-  <div v-if="guid != ''">
-      <h2>Aktuelle Frage</h2>
-      <p>{{ currentFrage }}</p>
-      <img :src="qrCodeUrl"><br><br>
-      <button v-on:click="LoadNextFrage">Nächste Frage</button>
-  </div>
+   <v-card>
+      <v-card-title>Aktuelle Frage</v-card-title>
+      <v-card-subtitle>{{ currentFrage }}</v-card-subtitle>
+      <v-card-text>
+         <img :src="qrCodeUrl">
+      </v-card-text>
+      <v-card-actions>
+         <v-btn v-on:click="LoadNextFrage" color="#383732">Nächste Frage</v-btn>
+      </v-card-actions>
+   </v-card>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import axios from 'axios';
 
 @Component
@@ -16,7 +20,7 @@ export default class CurrentFrage extends Vue {
   @Prop() private guid: string = '';
 
   private currentFrage: string = '';
-  private qrValue: string = 'TEstQRCode';
+  private qrValue: string = 'TestQRCode';
 
   private async LoadNextFrage() {
       const response = await axios.get('http://localhost:8888/api/frage?guid=' + this.guid);
@@ -24,7 +28,8 @@ export default class CurrentFrage extends Vue {
       this.qrValue = response.data.id;
   }
 
-  private async mounted() {
+  @Watch('guid')
+  private onPropertyChanged(value: string, oldValue: string) {
     this.LoadNextFrage();
   }
 
