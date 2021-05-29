@@ -31,6 +31,14 @@ namespace QuizPrototype.Service
             return frage;
         }
 
+        public async Task UpdateGame(string guidId, long frageId, long score)
+        {
+            var currentGame = await gameRepository.GetByGuid(guidId);
+            currentGame.AktuelleFrageId = frageId;
+            currentGame.Score = score;           
+            await gameRepository.UpdateGame(currentGame);
+        }
+
         public async Task<Game> StartGame()
         {
             var game = new Game { Guid = Guid.NewGuid().ToString(), AktuelleFrageId = 0 };

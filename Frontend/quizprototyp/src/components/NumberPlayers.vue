@@ -22,7 +22,7 @@ export default class NumberPlayers extends Vue {
   }
   private async loadNumberPlayers() {
     const response = await axios.get('http://localhost:8888/api/game');
-    this.numberPlayers = (response.data.length - 1).toString();
+    this.numberPlayers = (response.data.length).toString();
   }
 }
 </script>

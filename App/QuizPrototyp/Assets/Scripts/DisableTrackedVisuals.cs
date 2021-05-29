@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class DisableTrackedVisuals : MonoBehaviour
@@ -25,7 +22,7 @@ public class DisableTrackedVisuals : MonoBehaviour
         get => m_PlaneManager;
         set => m_PlaneManager = value;
     }
-    
+
     void OnEnable()
     {
         PlaceTrashOnPlane.onPlacedObject += OnPlacedObject;

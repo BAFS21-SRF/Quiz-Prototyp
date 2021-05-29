@@ -10,7 +10,7 @@ public class PlaneController : MonoBehaviour
     private List<Vector2> spawnPoints = new List<Vector2>();
     private ARPlaneManager planeManager;
     private ARPlane mainPlane = null;
-    public static bool canStart = false;  
+    public static bool canStart = false;
     private bool calcIsDone = false;
 
     public GameController gameController;
@@ -19,13 +19,16 @@ public class PlaneController : MonoBehaviour
 
     void FixedUpdate()
     {
-         Setup();
+        Setup();
     }
 
-    private void Setup(){        
-        if (canStart && !calcIsDone) {           
+    private void Setup()
+    {
+        if (canStart && !calcIsDone)
+        {
             GameObject.FindGameObjectWithTag("PlaneManager").TryGetComponent<ARPlaneManager>(out planeManager);
-                if(planeManager == null){
+            if (planeManager == null)
+            {
                 Debug.Log($"planeManager ist nulls");
             }
             canStart = false;
@@ -43,7 +46,8 @@ public class PlaneController : MonoBehaviour
         {
             if (mainPlane == null || plane.size.sqrMagnitude >= mainPlane.size.sqrMagnitude)
             {
-                if(mainPlane != plane){
+                if (mainPlane != plane)
+                {
                     mainPlane = plane; // Biggest Plane
                     Debug.Log("Biggest ARPlane: " + mainPlane.classification.ToString());
                     Debug.Log("Center X " + mainPlane.center.x + " and Y " + mainPlane.center.y + " and Z " + mainPlane.center.z);
@@ -54,12 +58,12 @@ public class PlaneController : MonoBehaviour
 
     private void CalcSpawnPoints()
     {
-        Debug.Log($"**********************Calc Spawn Points********************* With {spawnPoints.Count} Spawnpoints and IsMainPlaneNull_ {mainPlane ==null}");        
+        Debug.Log($"**********************Calc Spawn Points********************* With {spawnPoints.Count} Spawnpoints and IsMainPlaneNull_ {mainPlane == null}");
         var maxX = mainPlane.boundary.Max(value => value.x);
         var minX = mainPlane.boundary.Min(value => value.x);
         var maxY = mainPlane.boundary.Max(value => value.y);
         var minY = (mainPlane.boundary.Min(value => value.y) + maxY) / 2;
-        
+
         var trashPosition = PlaceTrashOnPlane.spawnedObject.GetComponentInChildren<CanSelect>().transform.position;
         var trashList = new List<Vector2> { new Vector2 { x = trashPosition.x, y = trashPosition.z } };
         Debug.Log($"TrahsPosition X = {trashPosition.x} and Y = {trashList[0].y}");
@@ -75,7 +79,7 @@ public class PlaneController : MonoBehaviour
             Vector2 newSpawnPoint = new Vector2(x, y);
             if (IsInPlane(newSpawnPoint) && !IsTooClose(trashList, newSpawnPoint) && !IsTooClose(spawnPoints, newSpawnPoint))
             {
-                Debug.Log("Spawn Points X " + newSpawnPoint.x +  " und Y " + newSpawnPoint.y);
+                Debug.Log("Spawn Points X " + newSpawnPoint.x + " und Y " + newSpawnPoint.y);
                 spawnPoints.Add(newSpawnPoint);
             }
             loopCount++;
@@ -103,7 +107,7 @@ public class PlaneController : MonoBehaviour
 
     private bool IsTooClose(List<Vector2> currentSpawnPoints, Vector2 newSpawnPoint)
     {
-        foreach(Vector2 vec in currentSpawnPoints)
+        foreach (Vector2 vec in currentSpawnPoints)
         {
             if (CalcDistance(vec, newSpawnPoint) < minDistanceToOtherObjects)
             {

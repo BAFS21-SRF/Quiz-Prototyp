@@ -22,8 +22,8 @@ public class UIManager : MonoBehaviour
 
     public bool startWithInstructionalUI
     {
-         get => m_StartWithInstructionalUI;
-         set => m_StartWithInstructionalUI = value;
+        get => m_StartWithInstructionalUI;
+        set => m_StartWithInstructionalUI = value;
     }
 
     public enum InstructionUI
@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     InstructionGoals m_InstructionalGoal;
-    
+
     public InstructionGoals instructionalGoal
     {
         get => m_InstructionalGoal;
@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     bool m_ShowSecondaryInstructionalUI;
-    
+
     public bool showSecondaryInstructionalUI
     {
         get => m_ShowSecondaryInstructionalUI;
@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
 
     Func<bool> m_GoalReached;
     bool m_SecondaryGoalReached;
-    
+
     Queue<UXHandle> m_UXOrderedQueue;
     UXHandle m_CurrentHandle;
     bool m_ProcessingInstructions;
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     ARPlaneManager m_PlaneManager;
-    
+
     public ARPlaneManager planeManager
     {
         get => m_PlaneManager;
@@ -174,7 +174,7 @@ public class UIManager : MonoBehaviour
     }
 
     bool m_FadedOff = false;
-    
+
 
     void OnEnable()
     {
@@ -256,7 +256,7 @@ public class UIManager : MonoBehaviour
                 m_ObjectManager = m_ARSessionOrigin.GetComponent<ARTrackedObjectManager>();
         }
     }
-    
+
     Func<bool> GetGoal(InstructionGoals goal)
     {
         switch (goal)
@@ -344,7 +344,7 @@ public class UIManager : MonoBehaviour
     }
 
     bool MultiplePlanesFound()
-    { 
+    {
         return m_PlaneManager?.trackables.count > 1;
     }
 

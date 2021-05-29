@@ -30,7 +30,7 @@ namespace QuizPrototype.Infrastructure.Data.Repositories
 
         public async Task<Game> GetByGuid(string guid)
         {
-            return await context.Game.Where(g => g.Guid.Equals(guid)).SingleOrDefaultAsync();
+            return await context.Game.Where(g => g.Guid.Equals(guid)).FirstOrDefaultAsync();
         }
 
         public async Task UpdateGame(Game game)
