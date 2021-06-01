@@ -30,7 +30,7 @@ export default class NumberPlayers extends Vue {
       }, 5000);
   }
   private async loadNumberPlayers() {
-    const response = await axios.get('http://localhost:8888/api/game');
+    const response = await axios.get('http://' + window.location.hostname + ':8888/api/game');
     this.numberPlayers = (response.data.length).toString();
   }
 }

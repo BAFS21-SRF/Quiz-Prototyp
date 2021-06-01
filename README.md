@@ -5,7 +5,7 @@
   <p align="center">
     Prototyp
     <br />
-    <a href="#">View Demo</a>
+    <a href="Resources/1_Demo-Video.mp4">View Demo</a>
   </p>
 </p>
 
@@ -35,6 +35,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<p align="center">
+<img src="Resources/0_Titelbild.jpg" alt="Logo" width="250">
+</p>
 
 This project is a prototype that was developed as part of a bachelor thesis. The prototype implements a kind of quiz app with augmented reality.
 
@@ -79,12 +82,20 @@ For this project you need to install the following software:
 ## Usage
 
 Once the Docker containers are launched, everything is ready to go.
+
 Database is running on localhost, 14331
+
 WebApi is running on localhost, 8888
+
 Dashboard is running on localhost, 8889
 
 <!-- CONTACT -->
 ## Contact
 
 Raphael Bühlmann - buehlrap@students.zhaw.ch
+
 Daniel Lützelschwab - luetzdan@students.zhaw.ch
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[product-screenshot]: Resources/0_Titelbild.jpg
