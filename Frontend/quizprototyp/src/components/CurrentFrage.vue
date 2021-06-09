@@ -23,7 +23,7 @@ export default class CurrentFrage extends Vue {
   private qrValue: string = 'TestQRCode';
 
   private async LoadNextFrage() {
-      const response = await axios.get('http://localhost:8888/api/frage?guid=' + this.guid);
+      const response = await axios.get('http://' + window.location.hostname + ':8888/api/frage?guid=' + this.guid);
       this.currentFrage = response.data.frageText;
       this.qrValue = response.data.id;
   }

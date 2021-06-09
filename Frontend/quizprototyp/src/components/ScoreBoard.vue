@@ -43,7 +43,7 @@ export default class ScoreBoard extends Vue {
     }
 
     private async loadGames() {
-        const response = await axios.get('http://localhost:8888/api/game');
+        const response = await axios.get('http://' + window.location.hostname + ':8888/api/game');
         this.games = response.data;
     }
 }

@@ -46,7 +46,7 @@ import ScoreBoard from './components/ScoreBoard.vue';
 export default class App extends Vue {
   private guid: string = '';
   private async created() {
-    const response = await axios.get('http://localhost:8888/api/gamestart');
+    const response = await axios.get('http://' + window.location.hostname + ':8888/api/gamestart');
     this.guid = response.data.guid;
   }
 }
